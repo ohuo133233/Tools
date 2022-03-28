@@ -2,7 +2,8 @@ package com.wang.javatools.utils;
 
 import android.util.Log;
 
-import com.example.java.BuildConfig;
+
+import com.wang.javatools.BuildConfig;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

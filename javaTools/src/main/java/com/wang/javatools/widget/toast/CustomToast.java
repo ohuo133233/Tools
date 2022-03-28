@@ -9,7 +9,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.java.R;
+import com.wang.javatools.R;
+
 
 public class CustomToast {
     private static Toast toast = null;
@@ -22,7 +23,7 @@ public class CustomToast {
             return;
         }
         if (mLayout == 0) {
-            toastRoot = LayoutInflater.from(context).inflate(R.layout.custom_toast, null);
+//            toastRoot = LayoutInflater.from(context).inflate(R.layout.custom_toast, null);
         } else {
             toastRoot = LayoutInflater.from(context).inflate(mLayout, null);
         }
