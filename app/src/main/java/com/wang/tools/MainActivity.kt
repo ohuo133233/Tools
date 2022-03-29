@@ -13,7 +13,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var list = listOf("动态权限", "Log工具", "监听网络变化", "网络请求", "DiaLog演示", "其他工具演示")
+        var list = listOf(
+            "动态权限",
+            "Log工具",
+            "监听网络变化",
+            "网络请求",
+            "DiaLog演示",
+            "recyclerView演示",
+            "其他工具演示",
+            "WIFI"
+        )
         val adapter = RecyclerViewAdapter(list, this)
 
 
@@ -26,12 +35,25 @@ class MainActivity : AppCompatActivity() {
                 when (position) {
                     0 -> startPermissionActivity()
                     1 -> startLogActivity()
-                    2 -> print("x == 2")
-                    3 -> startNetStateChangeActivity()
+                    2 -> startNetStateChangeActivity()
+                    3 -> print("3")
                     4 -> startDiaLogActivity()
+                    5 -> startRecyclerViewActivity()
+                    6 -> startOtherActivity()
+                    7 -> startWIFIActivity()
                 }
             }
         })
+    }
+
+    private fun startWIFIActivity() {
+        val intent = Intent(this, WIFIActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun startRecyclerViewActivity() {
+        val intent = Intent(this, RecyclerViewActivity::class.java)
+        startActivity(intent)
     }
 
     fun startPermissionActivity() {
@@ -56,6 +78,11 @@ class MainActivity : AppCompatActivity() {
 
     fun startDiaLogActivity() {
         val intent = Intent(this, DiaLogActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun startOtherActivity() {
+        val intent = Intent(this, OtherActivity::class.java)
         startActivity(intent)
     }
 

@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.log.LogUtils
-import com.wang.javatools.manager.permission.IPermissionCallBack
-import com.wang.javatools.manager.permission.PermissionManager
+import com.wang.javatools.permission.IPermissionCallBack
+import com.wang.javatools.permission.PermissionManager
 
 class LogActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {

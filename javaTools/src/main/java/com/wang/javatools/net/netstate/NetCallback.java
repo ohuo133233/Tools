@@ -1,5 +1,5 @@
 
-package com.wang.javatools.netstate;
+package com.wang.javatools.net.netstate;
 
 
 public  interface NetCallback {

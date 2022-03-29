@@ -6,8 +6,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.wang.javatools.manager.permission.IPermissionCallBack
-import com.wang.javatools.manager.permission.PermissionManager
+import com.wang.javatools.permission.IPermissionCallBack
+import com.wang.javatools.permission.PermissionManager
 
 
 class PermissionActivity : AppCompatActivity(), View.OnClickListener {

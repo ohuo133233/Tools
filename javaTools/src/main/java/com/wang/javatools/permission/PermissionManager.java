@@ -1,10 +1,7 @@
-package com.wang.javatools.manager.permission;
+package com.wang.javatools.permission;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.provider.Settings;
 import android.util.Log;
 
 import androidx.core.content.ContextCompat;
@@ -57,6 +54,8 @@ public class PermissionManager {
             String[] permission = new String[]{permissions};
             mPermissionsFragment.requestPermissions(permission, REQUEST_CODE);
             mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
+        } else {
+            Log.d(TAG, "已经有权限，不需要获取");
         }
 
     }

@@ -10,7 +10,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder> {
     private static final String TAG = "BaseRecyclerViewAdapter";
@@ -19,7 +19,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
     @LayoutRes
     private int mLayoutId;
     @NonNull
-    private ArrayList<T> mDataList;
+    private List<T> mDataList;
 
     private RecyclerView.ViewHolder mHolder;
     private BaseRecyclerViewAdapterBackCall mBaseRecyclerViewAdapterBackCall;
@@ -40,7 +40,9 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
     @Override
     public void onBindViewHolder(@NonNull BaseRecyclerViewHolder holder, int position) {
         mHolder = holder;
-        mBaseRecyclerViewAdapterBackCall.onBindViewHolder(holder, position);
+        if (mBaseRecyclerViewAdapterBackCall != null) {
+            mBaseRecyclerViewAdapterBackCall.onBindViewHolder(holder, position);
+        }
     }
 
 
@@ -72,7 +74,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
         @LayoutRes
         private int mLayoutId;
         @NonNull
-        private ArrayList<T> mDataList;
+        private List<T> mDataList;
 
 
         public Build<T> setContext(@NonNull Context mContext) {
@@ -85,7 +87,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
             return this;
         }
 
-        public Build<T> setDataList(@NonNull ArrayList<T> mDataList) {
+        public Build<T> setDataList(@NonNull List<T> mDataList) {
             this.mDataList = mDataList;
             return this;
         }

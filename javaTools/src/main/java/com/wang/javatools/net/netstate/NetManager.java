@@ -1,5 +1,5 @@
 
-package com.wang.javatools.netstate;
+package com.wang.javatools.net.netstate;
 
 import java.io.BufferedReader;
 import java.io.IOException;

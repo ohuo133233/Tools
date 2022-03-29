@@ -1,4 +1,4 @@
-package com.wang.javatools.manager.permission;
+package com.wang.javatools.permission;
 
 
 import android.content.pm.PackageManager;
