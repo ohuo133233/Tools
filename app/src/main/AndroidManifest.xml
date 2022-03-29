@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wang.tools">
-
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.LOADER_USAGE_STATS" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 拨打电话 -->
+    <uses-permission android:name="android.permission.ACCEPT_HANDOVER" /> <!-- 发送短信 -->
+    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- 读写外部分区权限，Android10不需要获取 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tools">
+        <activity
+            android:name=".DiaLogActivity"
+            android:exported="false" />
         <activity
             android:name=".NetStateChangeActivity"
             android:exported="false" />

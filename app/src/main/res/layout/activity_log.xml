@@ -4,6 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".LogActivity">
+
+    <Button
+        android:id="@+id/v_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="v级log" />
+
+    <Button
+        android:id="@+id/b_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="b级log" />
+
+    <Button
+        android:id="@+id/i_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="i级log" />
+
+    <Button
+        android:id="@+id/w_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="w级log" />
+
+    <Button
+        android:id="@+id/e_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="e级log" />
+
+    <Button
+        android:id="@+id/start_println"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开启log输出" />
+
+    <Button
+        android:id="@+id/coles_println"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="关闭所有log输出" />
+
+    <Button
+        android:id="@+id/log_save_open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开log保存" />
+
+    <Button
+        android:id="@+id/log_save_coles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="关闭log保存" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="格式化输出log" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

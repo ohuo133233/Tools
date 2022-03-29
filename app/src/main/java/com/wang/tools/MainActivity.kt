@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startDiaLogActivity() {
-        val intent = Intent(this, LogActivity::class.java)
+        val intent = Intent(this, DiaLogActivity::class.java)
         startActivity(intent)
     }
 
