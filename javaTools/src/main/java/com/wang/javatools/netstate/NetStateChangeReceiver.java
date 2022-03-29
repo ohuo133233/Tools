@@ -8,11 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-/**
- * 网络监听
- * 创建人：v_wangzhifeng01
- * 创建时间：2019-07-10
- */
+
 public class NetStateChangeReceiver extends BroadcastReceiver {
     public static final String TAG = "NetStateChangeReceiver";
     private NetCallback mNetCallback;

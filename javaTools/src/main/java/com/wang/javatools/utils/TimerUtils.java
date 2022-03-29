@@ -50,7 +50,6 @@ public class TimerUtils {
                 runnable.run();
             }
         };
-
         timer.schedule(task, time, time);
 
     }

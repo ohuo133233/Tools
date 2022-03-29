@@ -14,12 +14,7 @@ import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-/**
- * 网络管理者
- * 需要在Activty中初始化，在结束时需要销毁
- * 创建人：v_wangzhifeng01
- * 创建时间：2019-07-10
- */
+
 public final class NetManager {
     private static final String TAG = "NetManager";
     private static NetManager mNetManager;

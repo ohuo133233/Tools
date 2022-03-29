@@ -36,7 +36,7 @@ public class PermissionManager {
     }
 
 
-    public void requestPermissions(ArrayList<String> permissions) {
+    public void requestPermissions(ArrayList<String> permissions, IPermissionCallBack iPermissionCallBack) {
         Log.d(TAG, "requestPermissions");
         // 遍历权限，判断没有的去获取
         for (int i = 0; i < permissions.size(); i++) {
@@ -44,17 +44,19 @@ public class PermissionManager {
                 Log.d(TAG, "没有权限，去请求");
                 String[] permission = new String[]{permissions.get(i)};
                 mPermissionsFragment.requestPermissions(permission, REQUEST_CODE);
+                mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
             }
         }
     }
 
-    public void requestPermission(String permissions) {
+    public void requestPermission(String permissions, IPermissionCallBack iPermissionCallBack) {
         Log.d(TAG, "requestPermission");
         // 遍历权限，判断没有的去获取
         if (!isPermissionGranted(mApplicationContext, permissions)) {
             Log.d(TAG, "没有权限，去请求");
             String[] permission = new String[]{permissions};
             mPermissionsFragment.requestPermissions(permission, REQUEST_CODE);
+            mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
         }
 
     }
@@ -64,14 +66,4 @@ public class PermissionManager {
         return ContextCompat.checkSelfPermission(context.getApplicationContext(), permission) == PackageManager.PERMISSION_GRANTED;
     }
 
-    /**
-     * 跳转到当前应用的设置界面
-     */
-    private void goToAppSetting(Context context) {
-        Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", context.getPackageName(), null);
-        intent.setData(uri);
-        context.startActivity(intent);
-    }
 }

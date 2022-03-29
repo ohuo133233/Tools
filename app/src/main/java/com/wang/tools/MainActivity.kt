@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-
-
         adapter.setonClickListener(object : OnClickListener {
             override fun onClick(view: View, position: Int) {
                 when (position) {
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startNetStateChangeActivity() {
-        val intent = Intent(this, LogActivity::class.java)
+        val intent = Intent(this, NetStateChangeActivity::class.java)
         startActivity(intent)
     }
 

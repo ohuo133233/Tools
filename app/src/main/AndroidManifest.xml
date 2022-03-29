@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tools">
         <activity
+            android:name=".NetActivity"
+            android:exported="false" />
+        <activity
             android:name=".DiaLogActivity"
             android:exported="false" />
         <activity

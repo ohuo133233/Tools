@@ -11,6 +11,7 @@ public final class NetConstant {
     public static final String WIFI_OPEN = "wifi_open";
     public static final String WIFI_CLOSE = "wifi_close";
     public static final String NETWORK = "移动网络";
+    public static final String NETWORK_5G = "5G";
     public static final String NETWORK_4G = "4G";
     public static final String NETWORK_3G = "3G";
     public static final String NETWORK_2G = "2G";

@@ -18,7 +18,6 @@ class RecyclerViewAdapter(list: List<String>, context: Context) :
         return RecyclerViewHolder(itemView);
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as RecyclerViewHolder
         holder.mButton!!.text = mList[position]

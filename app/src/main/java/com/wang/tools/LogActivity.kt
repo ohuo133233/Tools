@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.log.LogUtils
+import com.wang.javatools.manager.permission.IPermissionCallBack
 import com.wang.javatools.manager.permission.PermissionManager
 
 class LogActivity : AppCompatActivity(), View.OnClickListener {
@@ -56,7 +57,20 @@ class LogActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun saveLog(isSave: Boolean) {
         val permissionManager = PermissionManager(this)
-        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,object :IPermissionCallBack{
+            override fun success() {
+                TODO("Not yet implemented")
+            }
+
+            override fun fail() {
+                TODO("Not yet implemented")
+            }
+
+            override fun noMoreReminders() {
+                TODO("Not yet implemented")
+            }
+
+        })
         LogUtils.setAutoSave(isSave, this)
     }
 }
