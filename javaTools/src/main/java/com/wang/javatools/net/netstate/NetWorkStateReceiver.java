@@ -1,4 +1,4 @@
-package com.wang.javatools.net.state;
+package com.wang.javatools.net.netstate;
 
 
 import android.content.BroadcastReceiver;
@@ -9,6 +9,8 @@ import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
+
+import com.wang.javatools.net.netstate.INetworkStateChanges;
 
 
 /**

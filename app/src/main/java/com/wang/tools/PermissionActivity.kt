@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.permission.IPermissionCallBack
 import com.wang.javatools.permission.PermissionManager
+import com.wang.javatools.utils.ToastUtils
 
 
 class PermissionActivity : AppCompatActivity(), View.OnClickListener {
@@ -51,15 +52,19 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
         permissionManager.requestPermission(Manifest.permission.CAMERA,
             object : IPermissionCallBack {
                 override fun success() {
-                    Log.e("TAG", "success")
+                    showPermissionSuccess()
                 }
 
                 override fun fail() {
-                    Log.e("TAG", "fail")
+                    showPermissionFail()
                 }
 
                 override fun noMoreReminders() {
-                    Log.e("TAG", "noMoreReminders")
+                    showPermissionNoMoreReminders()
+                }
+
+                override fun alreadyObtainedPermission() {
+                    showPermissionAlreadyObtained()
                 }
 
             })
@@ -69,15 +74,19 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
         permissionManager.requestPermission(Manifest.permission.ACCEPT_HANDOVER,
             object : IPermissionCallBack {
                 override fun success() {
-                    TODO("Not yet implemented")
+                    showPermissionSuccess()
                 }
 
                 override fun fail() {
-                    TODO("Not yet implemented")
+                    showPermissionFail()
                 }
 
                 override fun noMoreReminders() {
-                    TODO("Not yet implemented")
+                    showPermissionNoMoreReminders()
+                }
+
+                override fun alreadyObtainedPermission() {
+                    showPermissionAlreadyObtained()
                 }
             })
     }
@@ -86,15 +95,19 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
         permissionManager.requestPermission(Manifest.permission.SEND_SMS,
             object : IPermissionCallBack {
                 override fun success() {
-                    TODO("Not yet implemented")
+                    showPermissionSuccess()
                 }
 
                 override fun fail() {
-                    TODO("Not yet implemented")
+                    showPermissionFail()
                 }
 
                 override fun noMoreReminders() {
-                    TODO("Not yet implemented")
+                    showPermissionNoMoreReminders()
+                }
+
+                override fun alreadyObtainedPermission() {
+                    showPermissionAlreadyObtained()
                 }
             })
     }
@@ -103,16 +116,44 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
         permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
             object : IPermissionCallBack {
                 override fun success() {
-                    TODO("Not yet implemented")
+                    showPermissionSuccess()
                 }
 
                 override fun fail() {
-                    TODO("Not yet implemented")
+                    showPermissionFail()
                 }
 
                 override fun noMoreReminders() {
-                    TODO("Not yet implemented")
+                    showPermissionNoMoreReminders()
+                }
+
+                override fun alreadyObtainedPermission() {
+                    showPermissionAlreadyObtained()
                 }
             })
+    }
+
+    private fun showPermissionAlreadyObtained() {
+        runOnUiThread {
+            ToastUtils.showToast(this, "已经有权限")
+        }
+    }
+
+    private fun showPermissionSuccess() {
+        runOnUiThread {
+            ToastUtils.showToast(this, "成功")
+        }
+    }
+
+    private fun showPermissionFail() {
+        runOnUiThread {
+            ToastUtils.showToast(this, "失败")
+        }
+    }
+
+    private fun showPermissionNoMoreReminders() {
+        runOnUiThread {
+            ToastUtils.showToast(this, "用户点击了不再提醒")
+        }
     }
 }

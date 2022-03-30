@@ -2,16 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wang.tools">
     <!-- 相机权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 拨打电话 -->
-    <uses-permission android:name="android.permission.ACCEPT_HANDOVER" />
-    <!-- 发送短信 -->
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <!-- 读写外部分区权限，Android10不需要获取 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 如果应用以 Android 10 或更高版本为目标平台，则它必须具有 ACCESS_FINE_LOCATION 权限才能使用 WLAN、WLAN 感知或蓝牙 API 中的一些方法。 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 拨打电话 -->
+    <uses-permission android:name="android.permission.ACCEPT_HANDOVER" /> <!-- 发送短信 -->
+    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- 读写外部分区权限，Android10不需要获取 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 如果应用以 Android 10 或更高版本为目标平台，则它必须具有 ACCESS_FINE_LOCATION 权限才能使用 WLAN、WLAN 感知或蓝牙 API 中的一些方法。 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
@@ -22,6 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tools">
+        <activity
+            android:name=".ViewPager2Activity"
+            android:exported="false" />
         <activity
             android:name=".WIFIActivity"
             android:exported="false" />

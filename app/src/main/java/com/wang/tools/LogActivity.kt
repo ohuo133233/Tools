@@ -57,20 +57,7 @@ class LogActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun saveLog(isSave: Boolean) {
         val permissionManager = PermissionManager(this)
-        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,object :IPermissionCallBack{
-            override fun success() {
-                TODO("Not yet implemented")
-            }
-
-            override fun fail() {
-                TODO("Not yet implemented")
-            }
-
-            override fun noMoreReminders() {
-                TODO("Not yet implemented")
-            }
-
-        })
+        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, null)
         LogUtils.setAutoSave(isSave, this)
     }
 }

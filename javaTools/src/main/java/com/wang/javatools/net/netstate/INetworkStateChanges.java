@@ -1,4 +1,4 @@
-package com.wang.javatools.net.state;
+package com.wang.javatools.net.netstate;
 
 public interface INetworkStateChanges {
 

@@ -6,7 +6,6 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.log.LogUtils
 import com.wang.javatools.net.wifi.WiFIManager
-import com.wang.javatools.permission.IPermissionCallBack
 import com.wang.javatools.permission.PermissionManager
 
 class WIFIActivity : AppCompatActivity() {
@@ -22,19 +21,8 @@ class WIFIActivity : AppCompatActivity() {
             val permissionManager = PermissionManager(this)
             permissionManager.requestPermission(
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                object : IPermissionCallBack {
-                    override fun success() {
-
-                    }
-
-                    override fun fail() {
-
-                    }
-
-                    override fun noMoreReminders() {
-
-                    }
-                })
+                null
+            )
         }
 
         getSSID.setOnClickListener {

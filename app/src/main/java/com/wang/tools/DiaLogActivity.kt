@@ -21,7 +21,6 @@ class DiaLogActivity : AppCompatActivity() {
             .setText(R.id.right_button, "取消")
             .setCanceledOnTouchOutside(true)
             .build()
-
         dialog.show()
     }
 }
