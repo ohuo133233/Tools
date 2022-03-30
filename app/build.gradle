@@ -40,5 +40,6 @@ dependencies {
 
     implementation project(path: ':javaTools')
     implementation project(path: ':kotlinTools')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 }

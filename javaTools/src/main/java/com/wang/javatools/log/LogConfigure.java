@@ -13,6 +13,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * TODO
+ * 1.区分整机log和app log分别保存
+ * 2.定时清理和保存时机
+ * 3.E级log写为红色
+ */
 public class LogConfigure {
     private static final String TAG = "LogConfigure";
     private File mLogFile;

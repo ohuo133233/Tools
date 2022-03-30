@@ -14,6 +14,9 @@
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/activity_wifiactivity.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/common_dia_log.xml" value="0.2203125" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/common_dialog.xml" value="0.1640625" />
+        <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/dialog_fragment_item.xml" value="0.1296875" />
+        <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/fragment_blank.xml" value="0.21145833333333333" />
+        <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/fragment_dia_log.xml" value="0.21145833333333333" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/recycler_item.xml" value="0.20104166666666667" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/recycler_view_item.xml" value="0.27239583333333334" />
       </map>
