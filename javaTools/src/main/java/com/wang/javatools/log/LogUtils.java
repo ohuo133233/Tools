@@ -114,7 +114,11 @@ public class LogUtils {
      */
     public static void setAutoSave(boolean isAutoSave, Context context) {
         LogUtils.isAutoSave = isAutoSave;
-
+        if (LogUtils.isAutoSave) {
+            LogConfigure logConfigure = new LogConfigure();
+            logConfigure.initPath(context);
+            logConfigure.getLog();
+        }
     }
 
     public void setOptimizeFormat() {

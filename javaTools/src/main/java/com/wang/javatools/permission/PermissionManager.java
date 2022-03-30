@@ -56,9 +56,10 @@ public class PermissionManager {
             mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
         } else {
             Log.d(TAG, "已经有权限，不需要获取");
-            iPermissionCallBack.alreadyObtainedPermission();
+            if (iPermissionCallBack != null) {
+                iPermissionCallBack.alreadyObtainedPermission();
+            }
         }
-
     }
 
     // 判断权限是否批准

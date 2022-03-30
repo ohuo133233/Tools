@@ -20,9 +20,7 @@ class WIFIActivity : AppCompatActivity() {
         getPermission.setOnClickListener {
             val permissionManager = PermissionManager(this)
             permissionManager.requestPermission(
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                null
-            )
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION, null)
         }
 
         getSSID.setOnClickListener {
