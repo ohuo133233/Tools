@@ -23,22 +23,33 @@ public class LogConfigure {
     private static final String TAG = "LogConfigure";
     private File mLogFile;
     private Process mProcess;
+    private File externalCacheDir;
 
     public void initPath(Context context) {
-        File externalCacheDir = context.getExternalCacheDir();
+        externalCacheDir = context.getExternalCacheDir();
         Log.d(TAG, "externalCacheDir: " + externalCacheDir.getAbsolutePath());
-        mLogFile = new File(externalCacheDir + File.separator + TimerUtils.getInstance().getCurrentTimer() + "_app_log.txt");
-        FileUtil.createFile(mLogFile);
     }
 
-    public void getLog() {
-        String cmd = "logcat *:v | grep \"(" + myPid() + ")\"";
+    public void createLog() {
+        mLogFile = new File(externalCacheDir + File.separator + TimerUtils.getInstance().getCurrentTimer() + "_app_log.txt");
+        FileUtil.createFile(mLogFile);
+        Log.d(TAG, "创建Log文件： " + mLogFile.getAbsolutePath());
+    }
+
+    public void getMyAppLogCat() {
+        String minuteCurrentTimer = TimerUtils.getInstance().getMinuteCurrentTimer();
+        Log.d(TAG, "获取log的时间： " + minuteCurrentTimer);
+        String cmd = "logcat *:v | grep \"" + myPid() + "\" | grep \"" + TimerUtils.getInstance().getMinuteCurrentTimer() + "\"";
         try {
             mProcess = Runtime.getRuntime().exec(cmd);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        Log.d(TAG, "获取logcat的命令：" + cmd);
+    }
+
+    public void writeLogFile() {
         new Thread() {
             @Override
             public void run() {
@@ -60,8 +71,5 @@ public class LogConfigure {
                 }
             }
         }.start();
-
     }
-
-
 }

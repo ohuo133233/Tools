@@ -50,10 +50,10 @@
         android:text="关闭所有log输出" />
 
     <Button
-        android:id="@+id/log_save_open"
+        android:id="@+id/log_save_enabled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="打开log保存" />
+        android:text="开启log保存" />
 
     <Button
         android:id="@+id/log_save_coles"

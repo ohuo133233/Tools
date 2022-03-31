@@ -1,4 +1,4 @@
-package com.wang.tools
+package com.wang.tools.dialog
 
 import android.os.Bundle
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.wang.javatools.widget.dialog.CommonDialog
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
+import com.wang.tools.R
 
 class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
