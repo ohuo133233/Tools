@@ -3,6 +3,7 @@ package com.wang.javatools.utils;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.File;
 
@@ -28,11 +29,9 @@ public class SDCardUtils {
      * @return mFiles 外部储存的
      */
     public static File[] getExternalFilesDirs(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mFiles = context.getExternalFilesDirs(Environment.MEDIA_MOUNTED);
-            for (File file : mFiles) {
-                LogUtils.d(TAG, "外部储存地:" + file.getAbsolutePath());
-            }
+        mFiles = context.getExternalFilesDirs(Environment.MEDIA_MOUNTED);
+        for (File file : mFiles) {
+            Log.d(TAG, "外部储存地:" + file.getAbsolutePath());
         }
         return mFiles;
     }

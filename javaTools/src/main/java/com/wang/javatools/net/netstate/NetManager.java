@@ -68,18 +68,18 @@ public final class NetManager {
         // 传输数据
         if (activeInfo == null || !activeInfo.isConnected()) {
             Log.e(TAG, "无网络");
-            return NetConstant.NETWORK_NO;
+            return NetStateConstant.NETWORK_NO;
         }
         Log.e(TAG, activeInfo.getType() + "");
         if (activeInfo.getType() == ConnectivityManager.TYPE_WIFI) {
             Log.e(TAG, "WIFI网络");
-            return NetConstant.WIFI;
+            return NetStateConstant.WIFI;
         }
         if (activeInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
             Log.e(TAG, "移动网络");
             return getNetWorkClass();
         }
-        return NetConstant.NETWORK_UNKNOWN;
+        return NetStateConstant.NETWORK_UNKNOWN;
     }
 
     /**
@@ -92,8 +92,8 @@ public final class NetManager {
         switch (telephonyManager.getNetworkType()) {
             case TelephonyManager.NETWORK_TYPE_GPRS:
             case TelephonyManager.NETWORK_TYPE_EDGE:
-                Log.e(TAG, NetConstant.NETWORK_2G);
-                return NetConstant.NETWORK_2G;
+                Log.e(TAG, NetStateConstant.NETWORK_2G);
+                return NetStateConstant.NETWORK_2G;
             case TelephonyManager.NETWORK_TYPE_CDMA:
             case TelephonyManager.NETWORK_TYPE_1xRTT:
             case TelephonyManager.NETWORK_TYPE_IDEN:
@@ -106,14 +106,14 @@ public final class NetManager {
             case TelephonyManager.NETWORK_TYPE_EVDO_B:
             case TelephonyManager.NETWORK_TYPE_EHRPD:
             case TelephonyManager.NETWORK_TYPE_HSPAP:
-                Log.e(TAG, NetConstant.NETWORK_3G);
-                return NetConstant.NETWORK_3G;
+                Log.e(TAG, NetStateConstant.NETWORK_3G);
+                return NetStateConstant.NETWORK_3G;
             case TelephonyManager.NETWORK_TYPE_LTE:
-                Log.e(TAG, NetConstant.NETWORK_4G);
-                return NetConstant.NETWORK_4G;
+                Log.e(TAG, NetStateConstant.NETWORK_4G);
+                return NetStateConstant.NETWORK_4G;
             default:
-                Log.e(TAG, NetConstant.NETWORK_UNKNOWN);
-                return NetConstant.NETWORK_UNKNOWN;
+                Log.e(TAG, NetStateConstant.NETWORK_UNKNOWN);
+                return NetStateConstant.NETWORK_UNKNOWN;
         }
     }
 

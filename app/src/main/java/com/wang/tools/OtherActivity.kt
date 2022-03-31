@@ -7,7 +7,7 @@ import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.utils.TimerUtils
-import com.wang.javatools.utils.ToastUtils
+import com.wang.javatools.widget.toast.ToastUtils
 
 class OtherActivity : AppCompatActivity(), View.OnClickListener {
 

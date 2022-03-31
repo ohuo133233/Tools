@@ -24,11 +24,11 @@ public class NetStateChangeReceiver extends BroadcastReceiver {
         }
         if (WifiManager.WIFI_STATE_CHANGED_ACTION.equals(intent.getAction())) {
             String wifiState = isWifiState(intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0));
-            if (NetConstant.WIFI_OPEN.equals(wifiState)) {
+            if (NetStateConstant.WIFI_OPEN.equals(wifiState)) {
                 mNetCallback.wifi(wifiState);
                 return;
             }
-            if (NetConstant.WIFI_CLOSE.equals(wifiState)) {
+            if (NetStateConstant.WIFI_CLOSE.equals(wifiState)) {
                 mNetCallback.noWifi(wifiState);
                 return;
             }
@@ -36,8 +36,8 @@ public class NetStateChangeReceiver extends BroadcastReceiver {
         }
         if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
             String netWorkState = isNetWorkState();
-            if (NetConstant.NETWORK_2G.equals(netWorkState) || NetConstant.NETWORK_3G.equals(netWorkState)
-                    || NetConstant.NETWORK_4G.equals(netWorkState)) {
+            if (NetStateConstant.NETWORK_2G.equals(netWorkState) || NetStateConstant.NETWORK_3G.equals(netWorkState)
+                    || NetStateConstant.NETWORK_4G.equals(netWorkState)) {
                 mNetCallback.mobile(netWorkState);
             } else {
                 mNetCallback.noNet();
@@ -51,18 +51,18 @@ public class NetStateChangeReceiver extends BroadcastReceiver {
         switch (wifiState) {
             case WifiManager.WIFI_STATE_DISABLING:
                 // WiFi状态禁用
-                return NetConstant.WIFI_CLOSE;
+                return NetStateConstant.WIFI_CLOSE;
             case WifiManager.WIFI_STATE_DISABLED:
                 // WiFi状态已禁用
-                return NetConstant.WIFI_CLOSE;
+                return NetStateConstant.WIFI_CLOSE;
             case WifiManager.WIFI_STATE_ENABLING:
                 //WiFi状态启用
-                return NetConstant.WIFI_OPEN;
+                return NetStateConstant.WIFI_OPEN;
             case WifiManager.WIFI_STATE_ENABLED:
                 // WiFi状态已启用
-                return NetConstant.WIFI_OPEN;
+                return NetStateConstant.WIFI_OPEN;
             default:
-                return NetConstant.NETWORK_UNKNOWN;
+                return NetStateConstant.NETWORK_UNKNOWN;
         }
 
     }

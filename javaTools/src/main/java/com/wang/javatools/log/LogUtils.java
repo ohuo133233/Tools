@@ -14,6 +14,7 @@ import com.wang.javatools.manager.JavaToolsManager;
  * 1.把LogUtils封装成一个模块
  * 2.提供类似springBoot的log隔离层，底层用啥log都行
  * 3.使用work来优化性能
+ * 4.自动清理log和log分目录
  * <p>
  * <p>
  * LogUtils
@@ -126,7 +127,6 @@ public class LogUtils {
     }
 
     /**
-     * TODO 未开始
      * 操作自动保存log功能
      * 默认自动打开
      *

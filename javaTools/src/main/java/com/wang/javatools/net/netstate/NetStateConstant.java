@@ -6,7 +6,7 @@ package com.wang.javatools.net.netstate;
  * 创建人：v_wangzhifeng01
  * 创建时间：2019-07-10
  */
-public final class NetConstant {
+public final class NetStateConstant {
     public static final String WIFI = "wifi";
     public static final String WIFI_OPEN = "wifi_open";
     public static final String WIFI_CLOSE = "wifi_close";
