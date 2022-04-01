@@ -16,6 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="获取当前系统时间" />
+
+        <Button
+            android:id="@+id/is_first_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="App是否第一次启动"/>
     </LinearLayout>
 
 </ScrollView>

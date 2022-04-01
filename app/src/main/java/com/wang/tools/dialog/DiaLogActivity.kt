@@ -11,6 +11,7 @@ import com.wang.javatools.widget.dialog.CommonDialog
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
 import com.wang.tools.R
 
+
 class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +62,7 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
         val adapter = BaseRecyclerViewAdapter.Build<String>()
             .setContext(this)
             .setDataList(list)
-            .setLayoutId(R.layout.dialog_fragment_item)
+            .setLayoutId(R.layout.view_page_item)
             .build()
 
         adapter.setBaseRecyclerViewAdapterBackCall { holder, position ->

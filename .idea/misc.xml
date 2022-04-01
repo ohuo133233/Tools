@@ -7,6 +7,7 @@
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/activity_log.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/activity_main.xml" value="0.24114583333333334" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/activity_net.xml" value="0.2328125" />
+        <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/activity_net_state_change.xml" value="0.19947916666666668" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/activity_other.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/activity_permission.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/activity_recycler_view.xml" value="0.27239583333333334" />
@@ -21,6 +22,9 @@
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/recycler_view_item.xml" value="0.27239583333333334" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/drawable/ic_launcher_background.xml" value="0.20729166666666668" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/activity_log.xml" value="0.19114583333333332" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/common_dia_log.xml" value="0.265625" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/recycler_item.xml" value="0.19947916666666668" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/view_page_item.xml" value="0.19947916666666668" />
       </map>
     </option>
   </component>

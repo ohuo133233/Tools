@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
             "DiaLog演示",
             "recyclerView演示",
             "其他工具演示",
-            "WIFI"
+            "WIFI",
+            "ViewPager2"
         )
         val adapter = RecyclerViewAdapter(list, this)
 
@@ -42,8 +43,11 @@ class MainActivity : AppCompatActivity() {
                     5 -> startRecyclerViewActivity()
                     6 -> startOtherActivity()
                     7 -> startWIFIActivity()
+                    8 -> startViewPagerActivity()
                 }
             }
+
+
         })
     }
 
@@ -85,6 +89,12 @@ class MainActivity : AppCompatActivity() {
     fun startOtherActivity() {
         val intent = Intent(this, OtherActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun startViewPagerActivity() {
+        val intent = Intent(this, ViewPager2Activity::class.java)
+        startActivity(intent)
+
     }
 
 }

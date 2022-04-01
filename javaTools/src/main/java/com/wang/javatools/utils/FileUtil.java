@@ -1,5 +1,7 @@
 package com.wang.javatools.utils;
 
+import android.util.Log;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,6 +67,7 @@ public class FileUtil {
         if (!file.exists()) {
             try {
                 boolean newFile = file.createNewFile();
+                Log.d(TAG, "创建文件：" + newFile);
                 if (newFile) {
                     return file;
                 }
