@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
+import com.wang.javatools.widget.viewpager.BaseViewPagerAdapter
 
 class ViewPager2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,14 +24,14 @@ class ViewPager2Activity : AppCompatActivity() {
         )
 
         val viewPager = findViewById<ViewPager2>(R.id.view_pager)
-        val adapter = BaseRecyclerViewAdapter.Build<String>()
+        val adapter = BaseViewPagerAdapter.Build<String>()
             .setContext(this)
             .setDataList(list)
             .setLayoutId(R.layout.view_page_item)
             .build()
 
 
-        adapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
+        adapter.setBaseViewPagerViewAdapterBackCall { holder, position ->
             holder.getView<TextView>(R.id.text_view).text = list[position]
         }
 
