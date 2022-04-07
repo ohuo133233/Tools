@@ -15,9 +15,9 @@ import com.wang.javatools.widget.dialog.CommonDialog
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
 
 /**
- * TODO RecycleView可以增加右滑删除
- *
- *
+ * TODO
+ * 1.RecycleView可以增加右滑删除
+ * 2.参考Retrofit和mybatis—plus封装Room数据库
  */
 class RoomDemoActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mRoomManager: RoomManager

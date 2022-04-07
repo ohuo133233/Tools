@@ -45,6 +45,9 @@ import androidx.annotation.StyleRes;
  * 4.如果出现
  * 找不到***方法，原因这个view不是继承***
  * 请查看传入的View是否带有***的方法，如果有直接修改当前方法或者增加重载方法
+ * <p>
+ * <p>
+ * TODO 参考CameraX 使用lifecycle自动检测生命周期自动销毁
  */
 
 public class CommonDialog extends Dialog {

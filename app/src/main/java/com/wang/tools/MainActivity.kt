@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startNetActivity() {
-        val intent = Intent(this, LogActivity::class.java)
+        val intent = Intent(this, NetActivity::class.java)
         startActivity(intent)
     }
 
