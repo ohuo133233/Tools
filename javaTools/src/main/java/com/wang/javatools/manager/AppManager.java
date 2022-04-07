@@ -24,6 +24,7 @@ public class AppManager {
         return AppManagerHolder.instance;
     }
 
+
     private static class AppManagerHolder {
         private final static AppManager instance = new AppManager();
     }
@@ -93,6 +94,14 @@ public class AppManager {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * 设置为Debug模式
+     */
+    public void setDebug() {
+
     }
 
 

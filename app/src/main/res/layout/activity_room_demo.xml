@@ -4,36 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PermissionActivity">
+    tools:context=".RoomDemoActivity">
 
     <Button
-        android:id="@+id/camera"
+        android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="相机权限" />
+        android:text="添加" />
 
     <Button
-        android:id="@+id/accept_handover"
+        android:id="@+id/delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="电话" />
+        android:text="删除" />
 
     <Button
-        android:id="@+id/send_sms"
+        android:id="@+id/up_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="短信" />
+        android:text="更新" />
 
     <Button
-        android:id="@+id/write_external_storage"
+        android:id="@+id/query"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="读写权限" />
+        android:text="查询" />
 
-    <Button
-        android:id="@+id/jump_to_system_permission_page"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/base_data_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="跳转系统权限页面" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

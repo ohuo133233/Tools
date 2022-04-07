@@ -82,7 +82,7 @@ public class BaseViewPagerAdapter<T> extends RecyclerView.Adapter<BaseViewPagerV
             return this;
         }
 
-        public Build<T> setLayoutId(int mLayoutId) {
+        public Build<T> setLayoutId(@LayoutRes int mLayoutId) {
             this.mLayoutId = mLayoutId;
             return this;
         }

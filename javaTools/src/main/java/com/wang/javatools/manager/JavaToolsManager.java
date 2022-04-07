@@ -18,6 +18,7 @@ public class JavaToolsManager {
 
         AppManager.getInstance().setFirstStart(false);
         AppManager.getInstance().setFirstStartDays();
+        AppManager.getInstance().setDebug();
     }
 
 

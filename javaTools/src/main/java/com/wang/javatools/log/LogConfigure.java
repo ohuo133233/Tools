@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * TODO
@@ -37,9 +39,10 @@ public class LogConfigure {
     }
 
     public void getMyAppLogCat() {
-        String minuteCurrentTimer = TimerUtils.getInstance().getMinuteCurrentTimer();
+        String minuteCurrentTimer = getLogTimer();
         Log.d(TAG, "获取log的时间： " + minuteCurrentTimer);
-        String cmd = "logcat *:v | grep \"" + myPid() + "\" | grep \"" + TimerUtils.getInstance().getMinuteCurrentTimer() + "\"";
+//        String cmd = "logcat *:v | grep \"" + myPid() + "\" | grep \"" + minuteCurrentTimer + "\"";
+        String cmd = "logcat *:v | grep \"" + myPid();
         try {
             mProcess = Runtime.getRuntime().exec(cmd);
         } catch (IOException e) {
@@ -71,5 +74,12 @@ public class LogConfigure {
                 }
             }
         }.start();
+    }
+
+    private String getLogTimer() {
+        // 设置日期格式
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd HH:mm");
+        // new Date()为获取当前系统时间
+        return df.format(new Date());
     }
 }

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
-
 import com.wang.javatools.manager.JavaToolsManager;
 
 /**
@@ -133,11 +131,15 @@ public class LogUtils {
      * @param isAutoSave 自动保存log的开关
      * @param context    如果是开启log保存需要传入上下文
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     public static void setAutoSave(boolean isAutoSave, Context context) {
         LogUtils.isAutoSave = isAutoSave;
         if (LogUtils.isAutoSave) {
-            context.startForegroundService(new Intent(context, LogService.class));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(new Intent(context, LogService.class));
+            } else {
+                context.startService(new Intent(context, LogService.class));
+            }
         }
     }
 

@@ -12,6 +12,8 @@ import com.wang.javatools.permission.IPermissionCallBack
 import com.wang.javatools.permission.PermissionManager
 
 class LogActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var permissionManager: PermissionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log)
@@ -58,8 +60,13 @@ class LogActivity : AppCompatActivity(), View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun saveLog(isSave: Boolean) {
-        val permissionManager = PermissionManager(this)
+        permissionManager = PermissionManager(this)
         permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, null)
         LogUtils.setAutoSave(isSave, this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        permissionManager.onDestroy()
     }
 }

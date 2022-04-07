@@ -50,5 +50,17 @@ dependencies {
 
 
     // Data
+    // key
     implementation 'com.tencent:mmkv:1.2.10'
+
+    // database
+    implementation "androidx.room:room-runtime:2.4.2"
+    annotationProcessor "androidx.room:room-compiler:2.4.2"
+    // optional - RxJava3 support for Room
+    implementation "androidx.room:room-rxjava3:2.4.2"
+
+    // room - Test helpers
+    testImplementation "androidx.room:room-testing:2.4.2"
+
+
 }

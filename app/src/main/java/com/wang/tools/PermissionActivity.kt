@@ -1,6 +1,7 @@
 package com.wang.tools
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -25,12 +26,14 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
         val acceptHandover = findViewById<Button>(R.id.accept_handover)
         val sendSMS = findViewById<Button>(R.id.send_sms)
         val writeExternalStorage = findViewById<Button>(R.id.write_external_storage)
+        val mJumpToSystemPermissionPage = findViewById<Button>(R.id.jump_to_system_permission_page)
 
         camera.setOnClickListener(this)
         acceptHandover.setOnClickListener(this)
         sendSMS.setOnClickListener(this)
         sendSMS.setOnClickListener(this)
         writeExternalStorage.setOnClickListener(this)
+        mJumpToSystemPermissionPage.setOnClickListener(this)
 
     }
 
@@ -44,7 +47,12 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
             R.id.accept_handover -> callPhone()
             R.id.send_sms -> sendSMS()
             R.id.write_external_storage -> writeExternalStorage()
+            R.id.jump_to_system_permission_page -> jumpToSystemPermissionPage()
         }
+    }
+
+    private fun jumpToSystemPermissionPage() {
+        permissionManager.startSystemSetting(this)
     }
 
     private fun camera() {

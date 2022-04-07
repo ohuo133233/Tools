@@ -3,6 +3,8 @@ package com.wang.javatools.widget.toast;
 import android.content.Context;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 public class ToastUtils {
 
 
@@ -12,7 +14,7 @@ public class ToastUtils {
      * @param context 上下文
      * @param message 信息
      */
-    public static void showToast(Context context, String message) {
+    public static void showToast(@NonNull Context context, @NonNull String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -22,7 +24,7 @@ public class ToastUtils {
      * @param context 上下文
      * @param message 信息
      */
-    public static void showShortToast(Context context, String message) {
+    public static void showShortToast(@NonNull Context context, @NonNull String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -33,7 +35,7 @@ public class ToastUtils {
      * @param message 信息
      */
 
-    public static void showLongToast(Context context, String message) {
+    public static void showLongToast(@NonNull Context context, @NonNull String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 

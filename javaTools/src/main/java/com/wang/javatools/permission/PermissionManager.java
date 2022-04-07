@@ -1,9 +1,12 @@
 package com.wang.javatools.permission;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -16,9 +19,11 @@ public class PermissionManager {
     public static final int REQUEST_CODE = 0x01;
     private Context mApplicationContext;
     private PermissionsFragment mPermissionsFragment;
+    private FragmentActivity mFragmentActivity;
 
 
-    public PermissionManager(FragmentActivity activity) {
+    public PermissionManager(@NonNull FragmentActivity activity) {
+        mFragmentActivity = activity;
         mApplicationContext = activity.getApplicationContext();
 
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -33,7 +38,7 @@ public class PermissionManager {
     }
 
 
-    public void requestPermissions(ArrayList<String> permissions, IPermissionCallBack iPermissionCallBack) {
+    public void requestPermissions(@NonNull ArrayList<String> permissions, IPermissionCallBack iPermissionCallBack) {
         Log.d(TAG, "requestPermissions");
         // 遍历权限，判断没有的去获取
         for (int i = 0; i < permissions.size(); i++) {
@@ -46,7 +51,7 @@ public class PermissionManager {
         }
     }
 
-    public void requestPermission(String permissions, IPermissionCallBack iPermissionCallBack) {
+    public void requestPermission(@NonNull String permissions, IPermissionCallBack iPermissionCallBack) {
         Log.d(TAG, "requestPermission");
         // 遍历权限，判断没有的去获取
         if (!isPermissionGranted(mApplicationContext, permissions)) {
@@ -63,8 +68,19 @@ public class PermissionManager {
     }
 
     // 判断权限是否批准
-    public boolean isPermissionGranted(Context context, String permission) {
+    public boolean isPermissionGranted(@NonNull Context context, @NonNull String permission) {
         return ContextCompat.checkSelfPermission(context.getApplicationContext(), permission) == PackageManager.PERMISSION_GRANTED;
     }
 
+    public void startSystemSetting(Context context) {
+        Intent intent = new Intent(context.getPackageName());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        ComponentName comp = new ComponentName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");
+        intent.setComponent(comp);
+        context.startActivity(intent);
+    }
+
+    public void onDestroy() {
+        mFragmentActivity = null;
+    }
 }

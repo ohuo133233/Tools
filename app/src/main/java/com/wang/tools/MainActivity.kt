@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
             "recyclerView演示",
             "其他工具演示",
             "WIFI",
-            "ViewPager2"
+            "ViewPager2",
+            "Room数据库",
         )
         val adapter = RecyclerViewAdapter(list, this)
 
@@ -38,16 +39,15 @@ class MainActivity : AppCompatActivity() {
                     0 -> startPermissionActivity()
                     1 -> startLogActivity()
                     2 -> startNetStateChangeActivity()
-                    3 -> print("3")
+                    3 -> startNetActivity()
                     4 -> startDiaLogActivity()
                     5 -> startRecyclerViewActivity()
                     6 -> startOtherActivity()
                     7 -> startWIFIActivity()
                     8 -> startViewPagerActivity()
+                    9 -> startRoomDemoActivity()
                 }
             }
-
-
         })
     }
 
@@ -94,7 +94,11 @@ class MainActivity : AppCompatActivity() {
     private fun startViewPagerActivity() {
         val intent = Intent(this, ViewPager2Activity::class.java)
         startActivity(intent)
+    }
 
+    private fun startRoomDemoActivity() {
+        val intent = Intent(this, RoomDemoActivity::class.java)
+        startActivity(intent)
     }
 
 }
