@@ -37,8 +37,7 @@ class RoomDemoActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initDiaLog() {
-        mCommonDialog = CommonDialog.Build()
-            .setContext(this)
+        mCommonDialog = CommonDialog.Build(this)
             .setLayout(R.layout.base_data_dia_log)
             .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
             .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)

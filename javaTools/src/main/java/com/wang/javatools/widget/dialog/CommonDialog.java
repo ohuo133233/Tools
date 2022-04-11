@@ -2,6 +2,7 @@ package com.wang.javatools.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,12 +16,18 @@ import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
+
+import com.wang.javatools.base.LifecycleObserver;
 
 /**
  * 自定义Dialog类，
  * 帮你简化Dialog创建，使用Build类快速创建。
  * 通过传入的布局、按钮、Text，快速获取到Dialog，不提供默认模板
  * 返回对象是Dialog，你依然可以拿到返回Dialog进行封装和修改
+ * 无需关注Dialog的生命周期，会跟随传入的页面自动销毁，也可以自己调用dismiss
  * <p>
  * 使用指南
  * 1.如何定义Dialog中的属性
@@ -47,15 +54,36 @@ import androidx.annotation.StyleRes;
  * 请查看传入的View是否带有***的方法，如果有直接修改当前方法或者增加重载方法
  * <p>
  * <p>
- * TODO 参考CameraX 使用lifecycle自动检测生命周期自动销毁
  */
 
-public class CommonDialog extends Dialog {
+public class CommonDialog extends Dialog implements LifecycleObserver {
+    private static final String TAG = "CommonDialog";
     private Build mBuild;
 
-    public CommonDialog(@NonNull Build build) {
+    /**
+     * @param build            Build对象
+     * @param fragmentActivity Activity对象
+     */
+    private CommonDialog(@NonNull Build build, FragmentActivity fragmentActivity) {
         // 使用自定义Dialog样式
-        super(build.mContext, build.mStyle);
+        super(fragmentActivity, build.mStyle);
+
+        fragmentActivity.getLifecycle().addObserver(this);
+
+        mBuild = build;
+        build();
+    }
+
+    /**
+     * @param build    Build对象
+     * @param fragment fragment对象
+     */
+    private CommonDialog(@NonNull Build build, Fragment fragment) {
+        // 使用自定义Dialog样式
+        super(fragment.getContext(), build.mStyle);
+
+        fragment.getLifecycle().addObserver(this);
+
         mBuild = build;
         build();
     }
@@ -77,24 +105,44 @@ public class CommonDialog extends Dialog {
         return this.mBuild.mRoot.findViewById(viewId);
     }
 
-    public void setButtonOnClickListener(@IdRes int viewId,
-                                         @NonNull View.OnClickListener onClickListener) {
-        Button button = this.mBuild.mRoot.findViewById(viewId);
-        button.setOnClickListener(v -> onClickListener.onClick(button));
+    /**
+     * 自动处理生命周期，当Activity销毁时销毁自己
+     * 解决忘记调用dismiss 出现的异常
+     * android.view.WindowLeaked: Activity xxxActivity has leaked window DecorView[xxxActivity] that was originally added here
+     *
+     * @param owner LifecycleOwner对象
+     */
+    @Override
+    public void onDestroy(@NonNull LifecycleOwner owner) {
+        // 经过测试多次调用dismiss()没有异常
+        Log.e(TAG, "自动销毁Dialog");
+        this.dismiss();
     }
 
+    @Override
+    public void dismiss() {
+        Log.d(TAG, "dismiss");
+        super.dismiss();
+    }
 
     public static class Build {
-        private Context mContext;
+        private final Context mContext;
+        private FragmentActivity fragmentActivity;
+        private Fragment fragment;
         private View mRoot;
         private int mWidth;
         private int mHeight;
         private boolean mCancel;
         private int mStyle;
 
-        public Build setContext(@NonNull Context mContext) {
-            this.mContext = mContext;
-            return this;
+        public Build(FragmentActivity fragmentActivity) {
+            this.mContext = fragmentActivity;
+            this.fragmentActivity = fragmentActivity;
+        }
+
+        public Build(Fragment fragment) {
+            this.mContext = fragment.getContext();
+            this.fragment = fragment;
         }
 
         public Build setLayout(@LayoutRes int mLayout) {
@@ -158,7 +206,11 @@ public class CommonDialog extends Dialog {
         }
 
         public CommonDialog build() {
-            return new CommonDialog(this);
+            if (fragmentActivity != null) {
+                return new CommonDialog(this, fragmentActivity);
+            } else {
+                return new CommonDialog(this, fragment);
+            }
         }
 
     }

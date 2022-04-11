@@ -1,11 +1,11 @@
 package com.wang.tools
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.net.request.OkHttpManager
 import com.wang.javatools.widget.dialog.CommonDialog
 
@@ -43,8 +43,7 @@ class NetActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun sendGet() {
-        mDialog = CommonDialog.Build()
-            .setContext(this)
+        mDialog = CommonDialog.Build(this)
             .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
             .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
             .setLayout(R.layout.net_dia_log)

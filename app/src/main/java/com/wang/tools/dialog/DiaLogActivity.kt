@@ -18,14 +18,17 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_dia_log)
         val standardDialog = findViewById<Button>(R.id.standard_dialog)
         val fragmentDialog = findViewById<Button>(R.id.fragment_dialog)
+        val testDialogLifecycle = findViewById<Button>(R.id.test_dialog_lifecycle)
 
         standardDialog.setOnClickListener(this)
         fragmentDialog.setOnClickListener(this)
+        testDialogLifecycle.setOnClickListener(this)
+
+
     }
 
     private fun standardDialog() {
-        val dialog = CommonDialog.Build()
-            .setContext(this)
+        val dialog = CommonDialog.Build(this)
             .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
             .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
             .setLayout(R.layout.common_dia_log)
@@ -39,8 +42,7 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun fragmentDialog() {
-        val dialog = CommonDialog.Build()
-            .setContext(this)
+        val dialog = CommonDialog.Build(this)
             .setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
             .setHeight(ViewGroup.LayoutParams.MATCH_PARENT)
             .setLayout(R.layout.fragment_dia_log)
@@ -84,6 +86,29 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.standard_dialog -> standardDialog()
             R.id.fragment_dialog -> fragmentDialog()
+            R.id.test_dialog_lifecycle -> testDialogLifecycle()
         }
+    }
+
+    private fun testDialogLifecycle() {
+        val dialog = CommonDialog.Build(this)
+            .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
+            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+            .setLayout(R.layout.common_dia_log)
+            .setText(R.id.tile, "自定义标题")
+            .setText(R.id.message, "点击确定销毁Activity")
+            .setText(R.id.left_button, "自动销毁Dialog")
+            .setText(R.id.right_button, "手动销毁Dialog")
+            .setOnClickListener(R.id.left_button) {
+                finish()
+            }
+            .setCanceledOnTouchOutside(true)
+            .build()
+        dialog.findViewById<Button>(R.id.right_button).setOnClickListener {
+            // 经过测试多次调用dialog.dismiss()没有异常
+            dialog.dismiss()
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }

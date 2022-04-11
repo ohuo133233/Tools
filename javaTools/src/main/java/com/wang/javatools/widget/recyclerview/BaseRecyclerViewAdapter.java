@@ -25,7 +25,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
     private BaseRecyclerViewAdapterBackCall mBaseRecyclerViewAdapterBackCall;
     private Build<T> mBuild;
 
-    public BaseRecyclerViewAdapter(@NonNull Build<T> build) {
+    private BaseRecyclerViewAdapter(@NonNull Build<T> build) {
         mBuild = build;
         build();
     }
