@@ -53,7 +53,6 @@ import com.wang.javatools.base.LifecycleObserver;
  * 找不到***方法，原因这个view不是继承***
  * 请查看传入的View是否带有***的方法，如果有直接修改当前方法或者增加重载方法
  * <p>
- * <p>
  */
 
 public class CommonDialog extends Dialog implements LifecycleObserver {
@@ -61,6 +60,8 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     private Build mBuild;
 
     /**
+     * 提供给Activity创建的Dialog的构造方法
+     *
      * @param build            Build对象
      * @param fragmentActivity Activity对象
      */
@@ -75,6 +76,8 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     }
 
     /**
+     * 提供给Fragment对象创建的Dialog的构造方法
+     *
      * @param build    Build对象
      * @param fragment fragment对象
      */

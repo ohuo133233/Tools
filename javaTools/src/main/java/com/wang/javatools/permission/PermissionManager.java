@@ -46,7 +46,14 @@ public class PermissionManager {
                 Log.d(TAG, "没有权限，去请求");
                 String[] permission = new String[]{permissions.get(i)};
                 mPermissionsFragment.requestPermissions(permission, REQUEST_CODE);
-                mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
+                if (mPermissionsFragment != null && iPermissionCallBack != null) {
+                    mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
+                }
+            } else {
+                Log.d(TAG, "已经有权限，不需要获取");
+                if (mPermissionsFragment != null && iPermissionCallBack != null) {
+                    iPermissionCallBack.alreadyObtainedPermission();
+                }
             }
         }
     }
@@ -58,10 +65,12 @@ public class PermissionManager {
             Log.d(TAG, "没有权限，去请求");
             String[] permission = new String[]{permissions};
             mPermissionsFragment.requestPermissions(permission, REQUEST_CODE);
-            mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
+            if (mPermissionsFragment != null && iPermissionCallBack != null) {
+                mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
+            }
         } else {
             Log.d(TAG, "已经有权限，不需要获取");
-            if (iPermissionCallBack != null) {
+            if (mPermissionsFragment != null && iPermissionCallBack != null) {
                 iPermissionCallBack.alreadyObtainedPermission();
             }
         }
@@ -72,6 +81,7 @@ public class PermissionManager {
         return ContextCompat.checkSelfPermission(context.getApplicationContext(), permission) == PackageManager.PERMISSION_GRANTED;
     }
 
+    // TODO 只能支持华为的权限跳转
     public void startSystemSetting(Context context) {
         Intent intent = new Intent(context.getPackageName());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

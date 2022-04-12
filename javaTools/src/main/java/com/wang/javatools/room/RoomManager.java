@@ -12,7 +12,7 @@ public class RoomManager {
     public void initRoom(Application application) {
         database = Room
                 .databaseBuilder(application.getApplicationContext(),
-                AppDatabase.class, "database-name")
+                        AppDatabase.class, "database-name")
                 .allowMainThreadQueries()
                 .build();
     }

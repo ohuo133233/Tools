@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.wang.javatools.base.BaseConstant;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -21,20 +23,18 @@ public class OkHttpManager {
     }
 
     public static OkHttpManager getInstance() {
-
         return OkHttpManagerHolder.instance;
     }
 
     private static class OkHttpManagerHolder {
         private static final OkHttpManager instance = new OkHttpManager();
-
     }
 
     public void test() {
         OkHttpClient okHttpClient = BaseNetManager.getInstance().getOkHttpClient();
         Request request = new Request.Builder()
                 .get()
-                .url("https://www.baidu.com/")
+                .url(BaseConstant.BASE_URL)
                 .build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
