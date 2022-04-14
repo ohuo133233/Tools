@@ -3,24 +3,23 @@ package com.wang.javatools.manager;
 import android.app.Application;
 
 import com.tencent.mmkv.MMKV;
+import com.wang.javatools.BuildConfig;
 import com.wang.javatools.base.BaseConstant;
 
 public class JavaToolsManager {
 
     private static boolean mIsDebug;
 
-    public JavaToolsManager(JavaToolsManager.Build build) {
+    private JavaToolsManager(JavaToolsManager.Build build) {
         JavaToolsManager.mIsDebug = build.mIsDebug;
         init(build);
     }
 
     private void init(Build build) {
         MMKV.initialize(build.mApplication);
-
-        AppManager.getInstance().setFirstStart(false);
-        AppManager.getInstance().setFirstStartDays();
-        AppManager.getInstance().setDebug();
-
+        if (BuildConfig.DEBUG) {
+            AppManager.getInstance().setDebug();
+        }
         BaseConstant.BASE_URL = build.mBaseUrl;
     }
 

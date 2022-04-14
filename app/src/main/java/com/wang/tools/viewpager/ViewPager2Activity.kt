@@ -1,11 +1,11 @@
-package com.wang.tools
+package com.wang.tools.viewpager
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
-import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
 import com.wang.javatools.widget.viewpager.BaseViewPagerAdapter
+import com.wang.tools.R
 
 class ViewPager2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

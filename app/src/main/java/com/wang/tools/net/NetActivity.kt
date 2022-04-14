@@ -1,4 +1,4 @@
-package com.wang.tools
+package com.wang.tools.net
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.net.request.OkHttpManager
 import com.wang.javatools.widget.dialog.CommonDialog
+import com.wang.tools.R
 
 class NetActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mDialog: CommonDialog

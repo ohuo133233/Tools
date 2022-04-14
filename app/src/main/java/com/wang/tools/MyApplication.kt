@@ -14,6 +14,4 @@ class MyApplication : Application() {
             .setApplication(this)
             .build()
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.wang.tools
+package com.wang.tools.room
 
 import android.os.Bundle
 import android.view.View
@@ -13,6 +13,7 @@ import com.wang.javatools.room.RoomManager
 import com.wang.javatools.room.User
 import com.wang.javatools.widget.dialog.CommonDialog
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
+import com.wang.tools.R
 
 /**
  * TODO

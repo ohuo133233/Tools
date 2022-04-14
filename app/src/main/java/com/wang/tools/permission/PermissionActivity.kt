@@ -1,7 +1,6 @@
-package com.wang.tools
+package com.wang.tools.permission
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.permission.IPermissionCallBack
 import com.wang.javatools.permission.PermissionManager
 import com.wang.javatools.widget.toast.ToastUtils
+import com.wang.tools.R
 
 
 class PermissionActivity : AppCompatActivity(), View.OnClickListener {

@@ -19,37 +19,52 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tools">
         <activity
-            android:name=".RoomDemoActivity"
+            android:name=".recyclerview.DragSortActivity"
             android:exported="false" />
         <activity
-            android:name=".ViewPager2Activity"
+            android:name=".recyclerview.RightSlideDeleteActivity"
             android:exported="false" />
         <activity
-            android:name=".WIFIActivity"
+            android:name=".recyclerview.MultiLayoutActivity"
             android:exported="false" />
         <activity
-            android:name=".OtherActivity"
+            android:name=".recyclerview.AddItemDecorationActivity"
             android:exported="false" />
         <activity
-            android:name=".RecyclerViewActivity"
+            android:name=".recyclerview.StandardRecyclerViewActivity"
             android:exported="false" />
         <activity
-            android:name=".NetActivity"
+            android:name=".room.RoomDemoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".viewpager.ViewPager2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".wifi.WIFIActivity"
+            android:exported="false" />
+        <activity
+            android:name=".other.OtherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".recyclerview.RecyclerViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".net.NetActivity"
             android:exported="false" />
         <activity
             android:name=".dialog.DiaLogActivity"
             android:exported="false" />
         <activity
-            android:name=".NetStateChangeActivity"
+            android:name=".net.NetStateChangeActivity"
             android:exported="false" />
         <activity
-            android:name=".LogActivity"
+            android:name=".log.LogActivity"
             android:exported="false" />
         <activity
-            android:name=".PermissionActivity"
+            android:name=".permission.PermissionActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

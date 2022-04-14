@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 
 import com.wang.javatools.R;
 
-
+/**
+ * 自定义Toast类
+ */
 public class CustomToast {
 
     public void showShortToast(@NonNull Context context, @LayoutRes int layout, @NonNull String message) {

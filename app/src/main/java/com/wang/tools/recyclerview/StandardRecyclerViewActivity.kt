@@ -1,18 +1,18 @@
-package com.wang.tools
+package com.wang.tools.recyclerview
 
-import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
+import com.wang.javatools.widget.recyclerview.RecyclerViewSplitLine
+import com.wang.tools.R
 
-class RecyclerViewActivity : AppCompatActivity() {
+class StandardRecyclerViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recycler_view)
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        setContentView(R.layout.activity_standard_recycler_view)
 
         var list = listOf(
             "1   2   3",
@@ -32,15 +32,20 @@ class RecyclerViewActivity : AppCompatActivity() {
             "43 44 45",
             "46 47 48",
         )
+
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+
+
         val recyclerViewAdapter = BaseRecyclerViewAdapter.Build<String>()
             .setContext(this)
-            .setLayoutId(R.layout.recycler_item)
+            .setLayoutId(R.layout.recycler_text_item)
             .setDataList(list)
             .build()
 
         recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
-            holder.getView<Button>(
-                R.id.button_view
+            holder.getView<TextView>(
+                R.id.text_view
             ).text = list[position]
         }
 

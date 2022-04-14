@@ -1,4 +1,4 @@
-package com.wang.tools
+package com.wang.tools.log
 
 import android.Manifest
 import android.os.Build
@@ -8,8 +8,8 @@ import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.log.LogUtils
-import com.wang.javatools.permission.IPermissionCallBack
 import com.wang.javatools.permission.PermissionManager
+import com.wang.tools.R
 
 class LogActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var permissionManager: PermissionManager

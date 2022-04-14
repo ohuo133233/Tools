@@ -1,10 +1,11 @@
-package com.wang.tools
+package com.wang.tools.main
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.wang.tools.R
 
 class RecyclerViewAdapter(list: List<String>, context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -14,7 +15,7 @@ class RecyclerViewAdapter(list: List<String>, context: Context) :
     private lateinit var mOnClickListener: OnClickListener;
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val itemView = LayoutInflater.from(mContext).inflate(R.layout.recycler_item, parent, false)
+        val itemView = LayoutInflater.from(mContext).inflate(R.layout.recycler_button_item, parent, false)
         return RecyclerViewHolder(itemView);
     }
 

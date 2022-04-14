@@ -1,4 +1,4 @@
-package com.wang.tools
+package com.wang.tools.wifi
 
 import android.Manifest
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.log.LogUtils
 import com.wang.javatools.net.wifi.WiFIManager
 import com.wang.javatools.permission.PermissionManager
+import com.wang.tools.R
 
 class WIFIActivity : AppCompatActivity() {
 

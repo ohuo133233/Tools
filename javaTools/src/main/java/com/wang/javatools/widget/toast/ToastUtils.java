@@ -5,6 +5,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+/**
+ * 这个类只是封装Toast的方法，只为快速调用。无自定义
+ */
 public class ToastUtils {
 
 

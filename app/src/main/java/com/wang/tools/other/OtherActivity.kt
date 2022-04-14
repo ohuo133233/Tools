@@ -1,4 +1,4 @@
-package com.wang.tools
+package com.wang.tools.other
 
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.manager.AppManager
 import com.wang.javatools.utils.TimerUtils
 import com.wang.javatools.widget.toast.ToastUtils
+import com.wang.tools.R
 
 class OtherActivity : AppCompatActivity(), View.OnClickListener {
 
