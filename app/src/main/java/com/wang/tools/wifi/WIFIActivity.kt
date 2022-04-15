@@ -20,7 +20,6 @@ class WIFIActivity : AppCompatActivity() {
 
         getPermission.setOnClickListener {
             val permissionManager = PermissionManager(this)
-//            permissionManager.requestPermission(Manifest.permission.ACCESS_COARSE_LOCATION, null);
             permissionManager.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION, null);
         }
 

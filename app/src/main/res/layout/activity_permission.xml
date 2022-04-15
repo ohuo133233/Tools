@@ -6,6 +6,12 @@
     android:orientation="vertical"
     tools:context=".permission.PermissionActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="几个常用权限获取" />
+
     <Button
         android:id="@+id/camera"
         android:layout_width="match_parent"
@@ -31,9 +37,22 @@
         android:text="读写权限" />
 
     <Button
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="位置权限" />
+
+    <Button
         android:id="@+id/jump_to_system_permission_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="跳转系统权限页面" />
+
+
+    <Button
+        android:id="@+id/get_two_permission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="同时获取两个权限" />
 
 </LinearLayout>

@@ -27,6 +27,8 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
         val sendSMS = findViewById<Button>(R.id.send_sms)
         val writeExternalStorage = findViewById<Button>(R.id.write_external_storage)
         val mJumpToSystemPermissionPage = findViewById<Button>(R.id.jump_to_system_permission_page)
+        val location = findViewById<Button>(R.id.location)
+        val getTwoPermission = findViewById<Button>(R.id.get_two_permission)
 
         camera.setOnClickListener(this)
         acceptHandover.setOnClickListener(this)
@@ -34,6 +36,9 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
         sendSMS.setOnClickListener(this)
         writeExternalStorage.setOnClickListener(this)
         mJumpToSystemPermissionPage.setOnClickListener(this)
+        location.setOnClickListener(this)
+        getTwoPermission.setOnClickListener(this)
+
 
     }
 
@@ -48,7 +53,52 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
             R.id.send_sms -> sendSMS()
             R.id.write_external_storage -> writeExternalStorage()
             R.id.jump_to_system_permission_page -> jumpToSystemPermissionPage()
+            R.id.location -> location()
+            R.id.get_two_permission -> getTwoPermission()
         }
+    }
+
+    private fun getTwoPermission() {
+        permissionManager.requestPermissions(object : IPermissionCallBack {
+            override fun success() {
+                showPermissionSuccess()
+            }
+
+            override fun fail() {
+                showPermissionFail()
+            }
+
+            override fun noMoreReminders() {
+                showPermissionNoMoreReminders()
+            }
+
+            override fun alreadyObtainedPermission() {
+                showPermissionAlreadyObtained()
+            }
+        }, Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_EXTERNAL_STORAGE)
+
+    }
+
+    private fun location() {
+        permissionManager.requestPermission(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            object : IPermissionCallBack {
+                override fun success() {
+                    showPermissionSuccess()
+                }
+
+                override fun fail() {
+                    showPermissionFail()
+                }
+
+                override fun noMoreReminders() {
+                    showPermissionNoMoreReminders()
+                }
+
+                override fun alreadyObtainedPermission() {
+                    showPermissionAlreadyObtained()
+                }
+            })
     }
 
     private fun jumpToSystemPermissionPage() {
@@ -73,7 +123,6 @@ class PermissionActivity : AppCompatActivity(), View.OnClickListener {
                 override fun alreadyObtainedPermission() {
                     showPermissionAlreadyObtained()
                 }
-
             })
     }
 

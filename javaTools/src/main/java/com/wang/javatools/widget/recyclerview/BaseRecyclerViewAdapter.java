@@ -15,6 +15,12 @@ import java.util.List;
 
 /**
  * 使用指南
+ * 支持功能列表
+ * 1.复杂布局
+ * 2.右滑动删除
+ * 3.拖动排序
+ * <p>
+ * 注意事项
  * 1.当前BaseRecyclerViewAdapter设置长度最小长度为1
  *
  * @param <T> 类型

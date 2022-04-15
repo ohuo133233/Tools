@@ -36,28 +36,8 @@ public class PermissionManager {
     }
 
 
-    public void requestPermissions(IPermissionCallBack iPermissionCallBack, @NonNull String... permissions) {
-        Log.d(TAG, "requestPermissions");
-        // 遍历权限，判断没有的去获取
-        for (int i = 0; i < permissions.length - 1; i++) {
-            if (!isPermissionGranted(mApplicationContext, permissions[i])) {
-                Log.d(TAG, "没有权限，去请求");
-                String[] permission = new String[]{permissions[i]};
-                mPermissionsFragment.requestPermissions(permission, REQUEST_CODE);
-                if (mPermissionsFragment != null && iPermissionCallBack != null) {
-                    mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
-                }
-            } else {
-                Log.d(TAG, "已经有权限，不需要获取");
-                if (mPermissionsFragment != null && iPermissionCallBack != null) {
-                    iPermissionCallBack.alreadyObtainedPermission();
-                }
-            }
-        }
-    }
-
     public void requestPermission(@NonNull String permissions, IPermissionCallBack iPermissionCallBack) {
-        Log.d(TAG, "requestPermission");
+        Log.d(TAG, "获取单个权限");
         // 遍历权限，判断没有的去获取
         if (!isPermissionGranted(mApplicationContext, permissions)) {
             Log.d(TAG, "没有权限，去请求");
@@ -72,6 +52,30 @@ public class PermissionManager {
                 iPermissionCallBack.alreadyObtainedPermission();
             }
         }
+    }
+
+
+    public void requestPermissions(IPermissionCallBack iPermissionCallBack, @NonNull String... permissions) {
+        Log.d(TAG, "获取多个权限： " + permissions.length);
+
+        for (int i = 0; i < permissions.length - 1; i++) {
+            if (isPermissionGranted(mApplicationContext, permissions[i])) {
+                permissions[i] = "";
+            }else {
+                Log.d(TAG, "已经有权限，不需要获取");
+                if (mPermissionsFragment != null && iPermissionCallBack != null) {
+                    iPermissionCallBack.alreadyObtainedPermission();
+                }
+            }
+        }
+
+        if (mPermissionsFragment != null) {
+            mPermissionsFragment.requestPermissions(permissions, REQUEST_CODE);
+            if (iPermissionCallBack != null) {
+                mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);
+            }
+        }
+
     }
 
     // 判断权限是否批准
