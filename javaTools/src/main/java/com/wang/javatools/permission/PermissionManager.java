@@ -59,9 +59,9 @@ public class PermissionManager {
         Log.d(TAG, "获取多个权限： " + permissions.length);
 
         for (int i = 0; i < permissions.length - 1; i++) {
-            if (isPermissionGranted(mApplicationContext, permissions[i])) {
-                permissions[i] = "";
-            }else {
+            if (!isPermissionGranted(mApplicationContext, permissions[i])) {
+                permissions[i] = permissions[i];
+            } else {
                 Log.d(TAG, "已经有权限，不需要获取");
                 if (mPermissionsFragment != null && iPermissionCallBack != null) {
                     iPermissionCallBack.alreadyObtainedPermission();
