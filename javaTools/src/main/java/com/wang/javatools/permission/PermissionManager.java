@@ -12,8 +12,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.util.ArrayList;
-
 public class PermissionManager {
     public static final String TAG = PermissionManager.class.getSimpleName();
     public static final int REQUEST_CODE = 0x01;
@@ -38,13 +36,13 @@ public class PermissionManager {
     }
 
 
-    public void requestPermissions(@NonNull ArrayList<String> permissions, IPermissionCallBack iPermissionCallBack) {
+    public void requestPermissions(IPermissionCallBack iPermissionCallBack, @NonNull String... permissions) {
         Log.d(TAG, "requestPermissions");
         // 遍历权限，判断没有的去获取
-        for (int i = 0; i < permissions.size(); i++) {
-            if (!isPermissionGranted(mApplicationContext, permissions.get(i))) {
+        for (int i = 0; i < permissions.length - 1; i++) {
+            if (!isPermissionGranted(mApplicationContext, permissions[i])) {
                 Log.d(TAG, "没有权限，去请求");
-                String[] permission = new String[]{permissions.get(i)};
+                String[] permission = new String[]{permissions[i]};
                 mPermissionsFragment.requestPermissions(permission, REQUEST_CODE);
                 if (mPermissionsFragment != null && iPermissionCallBack != null) {
                     mPermissionsFragment.setIPermissionCallBack(iPermissionCallBack);

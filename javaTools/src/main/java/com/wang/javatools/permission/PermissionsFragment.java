@@ -35,7 +35,9 @@ public class PermissionsFragment extends Fragment {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // 获取权限成功
                 Log.d(TAG, "获取权限成功");
-                mIPermissionCallBack.success();
+                if (mIPermissionCallBack != null) {
+                    mIPermissionCallBack.success();
+                }
             } else {
                 // 如果没有获取权限，那么可以提示用户去设置界面--->应用权限开启权限
                 Log.d(TAG, "获取权限失败");
