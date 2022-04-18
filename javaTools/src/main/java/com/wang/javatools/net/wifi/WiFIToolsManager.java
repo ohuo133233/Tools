@@ -1,6 +1,5 @@
 package com.wang.javatools.net.wifi;
 
-import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -10,60 +9,84 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.util.Log;
 
+import com.wang.javatools.manager.AppManager;
+
 public class WiFIToolsManager {
 
     private static final String TAG = "WiFIToolsManager";
+    private ConnectivityManager mConnectivityManager;
+    private WifiManager mWifiManager;
 
-    public String getSSID(Context applicationContext) {
-
-        if (applicationContext instanceof Application) {
-            throw new IllegalArgumentException("需要使用applicationContext");
-        }
-
+    public String getSSID() {
         switch (Build.VERSION.SDK_INT) {
             case Build.VERSION_CODES.P:
                 Log.d(TAG, "使用28的API获取");
-                if (checkGpsIsOpen(applicationContext)) {
-                    ConnectivityManager connectivityManager = (ConnectivityManager) applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                if (checkGpsIsOpen()) {
+                    getConnectivityManager();
+                    NetworkInfo networkInfo = mConnectivityManager.getActiveNetworkInfo();
                     return networkInfo.getExtraInfo();
                 }
             case Build.VERSION_CODES.Q:
                 Log.d(TAG, "使用29的API");
                 //获取
-                WifiManager wifiManager = (WifiManager) applicationContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                WifiInfo connectionInfo = wifiManager.getConnectionInfo();
+                getWifiManager();
+                WifiInfo connectionInfo = mWifiManager.getConnectionInfo();
                 return connectionInfo.getSSID();
             default:
                 Log.d(TAG, "使用低于28的API");
-                ConnectivityManager connectivityManager = (ConnectivityManager) applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                getConnectivityManager();
+                NetworkInfo networkInfo = mConnectivityManager.getActiveNetworkInfo();
                 return networkInfo.getExtraInfo();
         }
 
     }
 
-    private boolean checkGpsIsOpen(Context context) {
-        boolean isOpen;
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        isOpen = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    public int getWifiState() {
+        WifiManager wifiManager = (WifiManager) AppManager.getInstance().getApplicationContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        return wifiManager.getWifiState();
+    }
+
+    @Deprecated()
+    // 未生效
+    public void setWifiEnabled(boolean isEnabled) {
+        getWifiManager();
+        mWifiManager.setWifiEnabled(isEnabled);
+    }
+
+
+    private void getWifiManager() {
+        if (mWifiManager == null) {
+            mWifiManager = (WifiManager) AppManager.getInstance().getApplicationContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        }
+    }
+
+    private void getConnectivityManager() {
+        if (mConnectivityManager == null) {
+            mConnectivityManager = (ConnectivityManager) AppManager.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        }
+    }
+
+    private boolean checkGpsIsOpen() {
+        LocationManager locationManager = (LocationManager) AppManager.getInstance().getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        boolean isOpen = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         Log.d(TAG, "Gps is Open = " + isOpen);
         return isOpen;
     }
 
 
-//    public int getWifiState() {
-//
+//    public boolean is24GHzBandSupported(Context context) {
+//        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        return wifiManager.is24GHzBandSupported();
 //    }
 //
-//
-//    public boolean is24GHzBandSupported() {
+//    public boolean is5GHzBandSupported(Context context) {
+//        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        return wifiManager.is5GHzBandSupported();
 //    }
 //
-//    public boolean is5GHzBandSupported() {
-//    }
-//
-//    public boolean is60GHzBandSupported() {
+//    public boolean is60GHzBandSupported(Context context) {
+//        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//        return wifiManager.is60GHzBandSupported();
 //    }
 
 
