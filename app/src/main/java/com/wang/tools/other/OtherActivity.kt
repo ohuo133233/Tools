@@ -1,12 +1,9 @@
 package com.wang.tools.other
 
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.wang.javatools.manager.AppManager
 import com.wang.javatools.utils.TimerUtils
 import com.wang.javatools.widget.toast.ToastUtils
 import com.wang.tools.R
@@ -14,7 +11,6 @@ import com.wang.tools.R
 class OtherActivity : AppCompatActivity(), View.OnClickListener {
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other)
@@ -33,13 +29,7 @@ class OtherActivity : AppCompatActivity(), View.OnClickListener {
         }
         when (v.id) {
             R.id.get_current_timer -> getCurrentTimer()
-            R.id.is_first_start -> isFirstStart()
         }
-    }
-
-    private fun isFirstStart() {
-        val firstStart = AppManager.getInstance().isFirstStart
-        ToastUtils.showShortToast(this, "是否第一次启动$firstStart")
     }
 
     private fun getCurrentTimer() {

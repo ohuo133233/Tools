@@ -12,11 +12,12 @@ import com.wang.tools.R
 
 
 class PermissionActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var permissionManager: PermissionManager;
+    private lateinit var permissionManager: PermissionManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permission)
         initView()
+
         permissionManager = PermissionManager(this)
 
     }

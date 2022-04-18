@@ -1,6 +1,7 @@
 package com.wang.javatools.manager;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.tencent.mmkv.MMKV;
 import com.wang.javatools.BuildConfig;
@@ -9,6 +10,7 @@ import com.wang.javatools.base.BaseConstant;
 public class JavaToolsManager {
 
     private static boolean mIsDebug;
+    private Context mApplicationContext;
 
     private JavaToolsManager(JavaToolsManager.Build build) {
         JavaToolsManager.mIsDebug = build.mIsDebug;
@@ -17,6 +19,7 @@ public class JavaToolsManager {
 
     private void init(Build build) {
         MMKV.initialize(build.mApplication);
+        AppManager.getInstance().setApplicationContext(build.mApplication.getApplicationContext());
         if (BuildConfig.DEBUG) {
             AppManager.getInstance().setDebug();
         }
@@ -33,6 +36,7 @@ public class JavaToolsManager {
         private boolean mIsDebug;
         private Application mApplication;
         private String mBaseUrl;
+
 
         public Build setIsDebug(boolean isDebug) {
             this.mIsDebug = isDebug;
