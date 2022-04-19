@@ -65,4 +65,8 @@ public class AppManager {
     public int getOrientation() {
         return orientation;
     }
+
+    public void setScreenOrientation(ScreenOrientation mScreenOrientation) {
+        this.mScreenOrientation = mScreenOrientation;
+    }
 }

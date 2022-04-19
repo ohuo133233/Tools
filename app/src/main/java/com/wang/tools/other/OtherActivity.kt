@@ -25,6 +25,17 @@ class OtherActivity : BaseActivity(), View.OnClickListener {
 
     }
 
+    override fun landscape() {
+        super.landscape()
+        ToastUtils.showShortToast(this, "切换为横屏")
+
+    }
+
+    override fun portrait() {
+        super.portrait()
+        ToastUtils.showShortToast(this, "切换为竖屏")
+    }
+
     override fun onClick(v: View?) {
         if (v == null) {
             return
