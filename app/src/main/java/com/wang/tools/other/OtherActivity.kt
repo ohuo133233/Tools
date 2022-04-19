@@ -1,14 +1,16 @@
 package com.wang.tools.other
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
+import com.wang.javatools.base.BaseActivity
+import com.wang.javatools.manager.AppManager
 import com.wang.javatools.utils.TimerUtils
 import com.wang.javatools.widget.toast.ToastUtils
 import com.wang.tools.R
 
-class OtherActivity : AppCompatActivity(), View.OnClickListener {
+class OtherActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,10 +18,10 @@ class OtherActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_other)
 
         val getCurrentTimer = findViewById<Button>(R.id.get_current_timer)
-        val isFirstStart = findViewById<Button>(R.id.is_first_start)
+        val getOrientation = findViewById<Button>(R.id.get_orientation)
 
         getCurrentTimer.setOnClickListener(this)
-        isFirstStart.setOnClickListener(this)
+        getOrientation.setOnClickListener(this)
 
     }
 
@@ -29,6 +31,15 @@ class OtherActivity : AppCompatActivity(), View.OnClickListener {
         }
         when (v.id) {
             R.id.get_current_timer -> getCurrentTimer()
+            R.id.get_orientation -> getOrientation()
+        }
+    }
+
+    private fun getOrientation() {
+        if (AppManager.getInstance().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            ToastUtils.showShortToast(this, "横屏")
+        } else {
+            ToastUtils.showShortToast(this, "竖屏")
         }
     }
 

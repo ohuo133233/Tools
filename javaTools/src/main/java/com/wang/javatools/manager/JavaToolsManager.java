@@ -1,16 +1,16 @@
 package com.wang.javatools.manager;
 
 import android.app.Application;
-import android.content.Context;
+import android.content.Intent;
 
 import com.tencent.mmkv.MMKV;
 import com.wang.javatools.BuildConfig;
 import com.wang.javatools.base.BaseConstant;
+import com.wang.javatools.base.MyService;
 
 public class JavaToolsManager {
 
     private static boolean mIsDebug;
-    private Context mApplicationContext;
 
     private JavaToolsManager(JavaToolsManager.Build build) {
         JavaToolsManager.mIsDebug = build.mIsDebug;
@@ -20,6 +20,12 @@ public class JavaToolsManager {
     private void init(Build build) {
         MMKV.initialize(build.mApplication);
         AppManager.getInstance().setApplicationContext(build.mApplication.getApplicationContext());
+
+        // 启动一个服务，用于全局收集横竖屏事件、
+        // TODO 赋予更多任务，但不要是耗时的
+        Intent intent = new Intent(build.mApplication.getApplicationContext(), MyService.class);
+        build.mApplication.startService(intent);
+
         if (BuildConfig.DEBUG) {
             AppManager.getInstance().setDebug();
         }

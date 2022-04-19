@@ -47,8 +47,9 @@ class WIFIActivity : AppCompatActivity(), View.OnClickListener {
     private fun setWifiEnabled() {
         var wiFIToolsManager = WiFIToolsManager()
         isEnabled = !isEnabled
+        wiFIToolsManager.openWifi(this)
         Log.d(TAG, "修改WIFI状态: $isEnabled")
-        wiFIToolsManager.setWifiEnabled(isEnabled)
+        getWifiState()
     }
 
     private fun getWifiState() {

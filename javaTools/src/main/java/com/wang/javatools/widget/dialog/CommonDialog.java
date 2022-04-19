@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -138,16 +137,32 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         private boolean mCancel;
         private int mStyle;
 
+        /**
+         * 通过Build构造方法限制创建方式
+         *
+         * @param fragmentActivity 限制为Activity
+         */
         public Build(FragmentActivity fragmentActivity) {
             this.mContext = fragmentActivity;
             this.fragmentActivity = fragmentActivity;
         }
 
+        /**
+         * 通过Build构造方法限制创建方式
+         *
+         * @param fragment 限制为Fragment
+         */
         public Build(Fragment fragment) {
             this.mContext = fragment.getContext();
             this.fragment = fragment;
         }
 
+        /**
+         * 传入布局
+         *
+         * @param mLayout 布局
+         * @return
+         */
         public Build setLayout(@LayoutRes int mLayout) {
             mRoot = LayoutInflater.from(mContext).inflate(mLayout, null, false);
             return this;

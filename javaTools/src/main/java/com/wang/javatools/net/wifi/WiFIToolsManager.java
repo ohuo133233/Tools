@@ -1,12 +1,15 @@
 package com.wang.javatools.net.wifi;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.wang.javatools.manager.AppManager;
@@ -38,7 +41,6 @@ public class WiFIToolsManager {
                 NetworkInfo networkInfo = mConnectivityManager.getActiveNetworkInfo();
                 return networkInfo.getExtraInfo();
         }
-
     }
 
     public int getWifiState() {
@@ -46,13 +48,22 @@ public class WiFIToolsManager {
         return wifiManager.getWifiState();
     }
 
-    @Deprecated()
-    // 未生效
-    public void setWifiEnabled(boolean isEnabled) {
-        getWifiManager();
-        mWifiManager.setWifiEnabled(isEnabled);
+    /**
+     * Android10一下支持自动打开WIFI
+     * Android10以上只能打开设置面板（部分手机只支持打开WIFI设置页面，无法打开WIFI悬浮UI）
+     *
+     * @param activity
+     */
+    public void openWifi(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            Intent intent = new Intent();
+            intent.setAction(Settings.Panel.ACTION_WIFI);
+            activity.startActivity(intent);
+        } else {
+            getWifiManager();
+            mWifiManager.setWifiEnabled(true);
+        }
     }
-
 
     private void getWifiManager() {
         if (mWifiManager == null) {

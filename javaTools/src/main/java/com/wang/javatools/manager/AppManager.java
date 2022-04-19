@@ -2,10 +2,15 @@ package com.wang.javatools.manager;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Configuration;
 
-// TODO 第一次启动方法待完善
+import com.wang.javatools.base.ScreenOrientation;
+
 public class AppManager {
+    private static final String TAG = AppManager.class.getSimpleName();
     private Context mApplicationContext;
+    private int orientation;
+    private ScreenOrientation mScreenOrientation;
 
     private AppManager() {
 
@@ -36,9 +41,28 @@ public class AppManager {
     /**
      * 设置为Debug模式
      */
+    // TODO
     public void setDebug() {
 
     }
 
+    /**
+     * 设置横竖屏切换，并通知监听的接口回调
+     *
+     * @param orientation 方向
+     */
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
+        if (mScreenOrientation != null) {
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                mScreenOrientation.landscape();
+            } else {
+                mScreenOrientation.portrait();
+            }
+        }
+    }
 
+    public int getOrientation() {
+        return orientation;
+    }
 }

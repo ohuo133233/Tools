@@ -6,10 +6,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wang.tools.*
-import com.wang.tools.main.RecyclerViewAdapter.OnClickListener
+import com.wang.tools.R
 import com.wang.tools.dialog.DiaLogActivity
 import com.wang.tools.log.LogActivity
+import com.wang.tools.main.RecyclerViewAdapter.OnClickListener
 import com.wang.tools.net.NetActivity
 import com.wang.tools.net.NetStateChangeActivity
 import com.wang.tools.other.OtherActivity
@@ -18,6 +18,7 @@ import com.wang.tools.recyclerview.RecyclerViewActivity
 import com.wang.tools.room.RoomDemoActivity
 import com.wang.tools.viewpager.ViewPager2Activity
 import com.wang.tools.wifi.WIFIActivity
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,5 +111,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, RoomDemoActivity::class.java)
         startActivity(intent)
     }
+
 
 }
