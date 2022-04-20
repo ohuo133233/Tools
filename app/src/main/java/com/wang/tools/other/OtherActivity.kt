@@ -22,11 +22,9 @@ class OtherActivity : BaseActivity(), View.OnClickListener {
 
         val getCurrentTimer = findViewById<Button>(R.id.get_current_timer)
         val getOrientation = findViewById<Button>(R.id.get_orientation)
-        val switchLanguage = findViewById<Button>(R.id.switch_language)
 
         getCurrentTimer.setOnClickListener(this)
         getOrientation.setOnClickListener(this)
-        switchLanguage.setOnClickListener(this)
 
     }
 
@@ -48,38 +46,10 @@ class OtherActivity : BaseActivity(), View.OnClickListener {
         when (v.id) {
             R.id.get_current_timer -> getCurrentTimer()
             R.id.get_orientation -> getOrientation()
-            R.id.switch_language -> switchLanguage()
+
         }
     }
 
-    private fun switchLanguage() {
-        val commonDialog = CommonDialog.Build(this)
-            .setLayout(R.layout.select_dialog)
-            .setCanceledOnTouchOutside(true)
-            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-            .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
-            .setText(R.id.select_one, "中文")
-            .setText(R.id.select_two, "英文")
-            .setText(R.id.select_three, "跟随系统")
-            .build()
-
-        commonDialog.findViewById<Button>(R.id.select_one)
-            .setOnClickListener {
-                LocalManage.getInstance().setChina()
-                commonDialog.dismiss()
-                finish()
-            }
-
-        commonDialog.findViewById<Button>(R.id.select_two)
-            .setOnClickListener {
-                LocalManage.getInstance().setEnglish()
-                commonDialog.dismiss()
-                finish()
-            }
-        commonDialog.show()
-
-
-    }
 
     private fun getOrientation() {
         if (AppManager.getInstance().orientation == Configuration.ORIENTATION_LANDSCAPE) {

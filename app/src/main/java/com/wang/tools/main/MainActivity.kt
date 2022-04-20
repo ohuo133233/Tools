@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wang.tools.R
 import com.wang.tools.dialog.DiaLogActivity
+import com.wang.tools.language.LanguageActivity
 import com.wang.tools.log.LogActivity
 import com.wang.tools.main.RecyclerViewAdapter.OnClickListener
 import com.wang.tools.net.NetActivity
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
             "WIFI",
             "ViewPager2",
             "Room数据库",
+            "中英文语言切换",
         )
         val adapter = RecyclerViewAdapter(list, this)
 
@@ -57,9 +59,15 @@ class MainActivity : AppCompatActivity() {
                     7 -> startWIFIActivity()
                     8 -> startViewPagerActivity()
                     9 -> startRoomDemoActivity()
+                    10-> startLanguageActivity()
                 }
             }
         })
+    }
+
+    private fun startLanguageActivity() {
+        val intent = Intent(this, LanguageActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startWIFIActivity() {

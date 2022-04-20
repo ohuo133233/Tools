@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wang.tools">
-
     <!-- 网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!--权限测试页面，需要的权限-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 权限测试页面，需要的权限 -->
     <!-- 相机权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 拨打电话 -->
-    <uses-permission android:name="android.permission.ACCEPT_HANDOVER" />
-    <!-- 发送短信 -->
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <!-- 读写外部分区权限，Android10不需要获取 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 拨打电话 -->
+    <uses-permission android:name="android.permission.ACCEPT_HANDOVER" /> <!-- 发送短信 -->
+    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- 读写外部分区权限，Android10不需要获取 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:name=".MyApplication"
@@ -27,6 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tools">
+        <activity
+            android:name=".language.LanguageActivity"
+            android:exported="false" />
         <activity
             android:name=".recyclerview.DragSortActivity"
             android:exported="false" />
