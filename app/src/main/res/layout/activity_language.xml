@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/demo_text"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/set_chinese"

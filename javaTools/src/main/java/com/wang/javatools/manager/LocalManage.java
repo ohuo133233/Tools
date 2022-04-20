@@ -44,7 +44,7 @@ public class LocalManage {
     }
 
     /**
-     * 获取选择的语言设置
+     * 获取当前选择的语言设置
      *
      * @return
      */
@@ -91,5 +91,6 @@ public class LocalManage {
     public void setEnglish() {
         DataManage.getInstance().put(LANGUAGE, 2);
     }
+
 
 }
