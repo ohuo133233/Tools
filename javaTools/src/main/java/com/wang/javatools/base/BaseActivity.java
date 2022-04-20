@@ -1,10 +1,12 @@
 package com.wang.javatools.base;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.wang.javatools.manager.AppManager;
+import com.wang.javatools.manager.LocalManage;
 
 public class BaseActivity extends AppCompatActivity implements ScreenOrientation {
 
@@ -28,5 +30,10 @@ public class BaseActivity extends AppCompatActivity implements ScreenOrientation
     @Override
     public void portrait() {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(LocalManage.getInstance().setLocal(context));
     }
 }
