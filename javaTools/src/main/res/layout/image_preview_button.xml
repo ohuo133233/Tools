@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <TextView
+        android:id="@+id/album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_album"
+        android:drawablePadding="4dp"
+        android:text="相册"
+        android:textColor="#D9FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/uploaded"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/uploaded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_uploaded"
+        android:drawablePadding="4dp"
+        android:text="已上传"
+        android:textColor="#D9FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/album"
+        app:layout_constraintEnd_toStartOf="@+id/get_camera_resources"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/album"
+        app:layout_constraintTop_toTopOf="@+id/album" />
+
+    <ImageButton
+        android:id="@+id/get_camera_resources"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/ic_take_photo_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/overturn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/uploaded"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/overturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_overturn"
+        android:drawablePadding="4dp"
+        android:text="旋转"
+        android:textColor="#D9FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/album"
+        app:layout_constraintEnd_toStartOf="@+id/back"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/get_camera_resources"
+        app:layout_constraintTop_toTopOf="@+id/album" />
+
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_image_upload_back"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:text="返回"
+        android:textColor="#D9FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/album"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/overturn"
+        app:layout_constraintTop_toTopOf="@+id/album" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

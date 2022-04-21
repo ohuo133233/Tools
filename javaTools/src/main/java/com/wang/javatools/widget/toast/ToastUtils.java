@@ -4,11 +4,14 @@ import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+
+import com.wang.javatools.base.LifecycleObserver;
 
 /**
  * 这个类只是封装Toast的方法，只为快速调用。无自定义
  */
-public class ToastUtils {
+public class ToastUtils implements LifecycleObserver {
 
 
     /**
@@ -42,4 +45,8 @@ public class ToastUtils {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onDestroy(@NonNull LifecycleOwner owner) {
+
+    }
 }

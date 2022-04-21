@@ -31,10 +31,18 @@
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/recycler_view_item.xml" value="0.27239583333333334" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/room_demo_item.xml" value="0.67" />
         <entry key="..\:/AndroidStudioProjects/Tools/app/src/main/res/layout/select_dialog.xml" value="0.22291666666666668" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/drawable/ic_album.xml" value="0.24114583333333334" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/drawable/ic_camera_flashlight_off.xml" value="0.24114583333333334" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/drawable/ic_image_upload_back.xml" value="0.24114583333333334" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/drawable/ic_launcher_background.xml" value="0.20729166666666668" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/drawable/ic_overturn.xml" value="0.24114583333333334" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/drawable/ic_take_photo_default.xml" value="0.24114583333333334" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/drawable/ic_uploaded.xml" value="0.24114583333333334" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/activity_camera.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/activity_log.xml" value="0.19114583333333332" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/common_dia_log.xml" value="0.265625" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/fragment_dia_log.xml" value="0.2677083333333333" />
+        <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/image_preview_button.xml" value="0.225" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/recycler_button_item.xml" value="0.20416666666666666" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/recycler_image_item.xml" value="0.3536458333333333" />
         <entry key="..\:/AndroidStudioProjects/Tools/javaTools/src/main/res/layout/recycler_item.xml" value="0.19947916666666668" />

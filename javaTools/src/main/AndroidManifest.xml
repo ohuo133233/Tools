@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wang.javatools">
-
     <!-- WIFI模块权限 -->
     <!-- Android 10 获取SSID -->
     <!-- 如果应用以 Android 10 或更高版本为目标平台，则它必须具有 ACCESS_FINE_LOCATION 权限才能使用 WLAN、WLAN 感知或蓝牙 API 中的一些方法。 -->
@@ -14,7 +13,18 @@
     <!-- 前台服务 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
+
     <application>
+        <activity
+            android:name=".camera.CameraActivity"
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:exported="false" />
+
         <service
             android:name=".base.MyService"
             android:configChanges="orientation|keyboard|layoutDirection|screenSize"

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.wang.javatools.camera.CameraActivity
 import com.wang.tools.R
 import com.wang.tools.dialog.DiaLogActivity
 import com.wang.tools.language.LanguageActivity
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             "ViewPager2",
             "Room数据库",
             "中英文语言切换",
+            "相机",
         )
         val adapter = RecyclerViewAdapter(list, this)
 
@@ -60,9 +62,16 @@ class MainActivity : AppCompatActivity() {
                     8 -> startViewPagerActivity()
                     9 -> startRoomDemoActivity()
                     10-> startLanguageActivity()
+                    11-> startCameraActivity()
+
                 }
             }
         })
+    }
+
+    private fun startCameraActivity() {
+        val intent = Intent(this, CameraActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startLanguageActivity() {
