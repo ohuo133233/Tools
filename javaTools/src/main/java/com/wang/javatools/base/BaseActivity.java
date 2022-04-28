@@ -36,4 +36,10 @@ public class BaseActivity extends AppCompatActivity implements ScreenOrientation
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(LocalManage.getInstance().setLocal(context));
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getInstance().setScreenOrientation(null);
+    }
 }

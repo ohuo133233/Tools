@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.wang.javatools.base.LifecycleObserver;
@@ -90,6 +91,22 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         build();
     }
 
+    /**
+     * 提供给Context对象创建Dialog的构造方法
+     *
+     * @param build   Build对象
+     * @param context 上下文
+     */
+    private CommonDialog(@NonNull Build build, Context context) {
+        // 使用自定义Dialog样式
+        super(context, build.mStyle);
+
+        build.mLifecycle.addObserver(this);
+        mBuild = build;
+        build();
+
+    }
+
     private void build() {
         setContentView(mBuild.mRoot);
         // 设置宽和高
@@ -131,6 +148,7 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         private final Context mContext;
         private FragmentActivity fragmentActivity;
         private Fragment fragment;
+        private Lifecycle mLifecycle;
         private View mRoot;
         private int mWidth;
         private int mHeight;
@@ -155,6 +173,17 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         public Build(Fragment fragment) {
             this.mContext = fragment.getContext();
             this.fragment = fragment;
+        }
+
+        /**
+         * 提供给Context对象创建Dialog的构造方法
+         *
+         * @param context   上下文
+         * @param lifecycle 创建Dialog需要跟随的生命周期的Lifecycle
+         */
+        public Build(Context context, Lifecycle lifecycle) {
+            this.mContext = context;
+            this.mLifecycle = lifecycle;
         }
 
         /**
@@ -224,10 +253,13 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         }
 
         public CommonDialog build() {
+
             if (fragmentActivity != null) {
                 return new CommonDialog(this, fragmentActivity);
-            } else {
+            } else if (fragment != null) {
                 return new CommonDialog(this, fragment);
+            } else {
+                return new CommonDialog(this, mContext);
             }
         }
 
