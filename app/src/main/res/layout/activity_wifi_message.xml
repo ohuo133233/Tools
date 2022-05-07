@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".wifi.WIFIMessageActivity">
+
+    <TextView
+        android:id="@+id/wifi_name_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WIFI 名字(SSID)"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/wifi_name_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/wifi_name_key"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text=" 演示WIFI" />
+
+    <TextView
+        android:id="@+id/wifi_bssid_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BSSID: "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_name_key" />
+
+    <TextView
+        android:id="@+id/wifi_bssid_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/wifi_bssid_key"
+        app:layout_constraintTop_toTopOf="@+id/wifi_bssid_key"
+        tools:text="BSSID" />
+
+    <TextView
+        android:id="@+id/capabilities_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="capabilities: "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_bssid_key" />
+
+    <TextView
+        android:id="@+id/capabilities_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/capabilities_key"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_bssid_key"
+        tools:text="capabilities_value" />
+
+    <TextView
+        android:id="@+id/wifi_Level_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wifi_Level: "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/capabilities_key" />
+
+    <TextView
+        android:id="@+id/wifi_Level_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/wifi_Level_key"
+        app:layout_constraintTop_toBottomOf="@+id/capabilities_key"
+        tools:text="wifi_Level_value " />
+
+    <TextView
+        android:id="@+id/wifi_frequency_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wifi_frequency: "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_Level_key" />
+
+    <TextView
+        android:id="@+id/wifi_frequency_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/wifi_frequency_key"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_Level_key"
+        tools:text="wifi_frequency" />
+
+
+    <TextView
+        android:id="@+id/wifi_timestamp_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wifi_timestamp: "
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_frequency_key" />
+
+    <TextView
+        android:id="@+id/wifi_timestamp_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/wifi_timestamp_key"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_frequency_key"
+        tools:text="wifi_timestamp: " />
+</androidx.constraintlayout.widget.ConstraintLayout>

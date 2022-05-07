@@ -46,7 +46,7 @@ class LogActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.v_log -> LogUtils.v("测试v级log")
-            R.id.b_log -> LogUtils.b("测试b级log")
+            R.id.b_log -> LogUtils.d("测试d级log")
             R.id.i_log -> LogUtils.i("测试i级log")
             R.id.w_log -> LogUtils.w("测试w级log")
             R.id.e_log -> LogUtils.e("测试e级log")

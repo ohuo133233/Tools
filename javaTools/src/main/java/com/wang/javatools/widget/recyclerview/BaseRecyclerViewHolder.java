@@ -12,6 +12,10 @@ public class BaseRecyclerViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
+    public View getItemView() {
+        return itemView;
+    }
+
     public <T extends View> T getView(@IdRes int viewId) {
         return itemView.findViewById(viewId);
     }

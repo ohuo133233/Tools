@@ -14,13 +14,6 @@
         android:layout_height="wrap_content"
         android:text="获取WIFI相关权限" />
 
-    <Button
-        android:id="@+id/get_ssid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="获取SSID"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/get_wifi_state"
@@ -33,4 +26,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="打开或者关闭WIFI" />
+
+
+    <Button
+        android:id="@+id/update_and_get_wifi_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="刷新和获取WIFI列表" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="单击查看WIFI详情页面，查看更多信息" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wifi_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 </LinearLayout>

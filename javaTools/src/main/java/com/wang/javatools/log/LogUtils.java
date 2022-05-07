@@ -43,13 +43,13 @@ public class LogUtils {
         }
     }
 
-    public static void b(String message) {
+    public static void d(String message) {
         if (isPrintln) {
             Log.d(TAG, message);
         }
     }
 
-    public static void b(String TAG, String message) {
+    public static void d(String TAG, String message) {
         if (isPrintln) {
             Log.d(TAG, message);
         }
