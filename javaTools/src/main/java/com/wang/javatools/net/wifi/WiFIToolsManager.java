@@ -1,13 +1,11 @@
 package com.wang.javatools.net.wifi;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.MacAddress;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
@@ -20,11 +18,9 @@ import android.net.wifi.WifiNetworkSpecifier;
 import android.os.Build;
 import android.os.PatternMatcher;
 import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 
 import com.wang.javatools.BuildConfig;
 import com.wang.javatools.manager.AppManager;
@@ -39,6 +35,8 @@ public class WiFIToolsManager {
     private static final String TAG = "WiFIToolsManager";
     private ConnectivityManager mConnectivityManager;
     private WifiManager mWifiManager;
+    private WifiReceiver mWifiReceiver;
+    private WifiCallBack mWifiCallBack;
 
     /* ************************Start******************************/
     /*                 单例和构造方法和私有方法                      */
@@ -82,7 +80,7 @@ public class WiFIToolsManager {
      * @return WIFI的SSID
      */
     public String getSSID() {
-        if (!getWifiState()) {
+        if (isClose()) {
             if (BuildConfig.DEBUG) {
                 throw new RuntimeException("未打开WIFI");
             } else {
@@ -142,12 +140,17 @@ public class WiFIToolsManager {
      *
      * @return WIFI当前的状态
      */
-    public boolean getWifiState() {
-        WifiManager wifiManager = (WifiManager) AppManager.getInstance().getApplicationContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (wifiManager.getWifiState() == 3) {
-            return true;
-        }
-        return false;
+    public int getWifiState() {
+        return mWifiManager.getWifiState();
+    }
+
+
+    public boolean isOpen() {
+        return mWifiManager.getWifiState() == 3;
+    }
+
+    public boolean isClose() {
+        return mWifiManager.getWifiState() != 3;
     }
 
     /**
@@ -216,9 +219,8 @@ public class WiFIToolsManager {
      *
      * @param ssid     目标SSID
      * @param password 目标密码
-     * @param timeOut  超时时间
      */
-    public void connectWifi(String ssid, String bssid, String capabilities, String password, int timeOut) {
+    public void connectWifi(String ssid, String password, WifiCallBack wifiCallBack) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 
             WifiNetworkSpecifier wifiNetworkSpecifier = new WifiNetworkSpecifier.Builder()
@@ -234,14 +236,30 @@ public class WiFIToolsManager {
 
             mConnectivityManager.requestNetwork(networkRequest, new ConnectivityManager.NetworkCallback() {
                 @Override
+                public void onBlockedStatusChanged(@NonNull Network network, boolean blocked) {
+                    super.onBlockedStatusChanged(network, blocked);
+                    if (wifiCallBack != null) {
+                        wifiCallBack.connectWifiFail();
+                    }
+                }
+
+                @Override
                 public void onAvailable(@NonNull Network network) {
                     super.onAvailable(network);
-                    Log.d(TAG, "network: " + network.toString());
+                    boolean connectWifi = isConnectWifi(ssid);
+                    Log.d(TAG, "connectWifi: " + connectWifi);
+                    if (connectWifi) {
+                        wifiCallBack.connectWifiSuccess();
+                    } else {
+                        wifiCallBack.connectWifiFail();
+                    }
                 }
+
+
             });
 
         } else {
-            if (!getWifiState()) {
+            if (isClose()) {
                 Log.e(TAG, "请打开WIFI");
             }
             Log.d(TAG, "ssid: " + ssid);
@@ -266,15 +284,6 @@ public class WiFIToolsManager {
             Log.d(TAG, "result: " + result);
         }
     }
-
-    public List<WifiConfiguration> getConfiguredNetworks(Context context) {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG, "没有权限");
-            return null;
-        }
-        return mWifiManager.getConfiguredNetworks();
-    }
-
 
     /**
      * 当前连接的WIFI是否指定连接的WIFI
@@ -306,27 +315,6 @@ public class WiFIToolsManager {
         return false;
     }
 
-    public boolean isWifi(String targetSSID, String ssid) {
-        // 直接对比
-        Log.d(TAG, "直接对比");
-        Log.d(TAG, "当前连接的: " + targetSSID);
-        Log.d(TAG, "传入的: " + ssid);
-        if (targetSSID.equals(ssid)) {
-            return true;
-        }
-        // 上面对比失败，给传入的SSID加上""，再试试
-        targetSSID = "\"" + targetSSID + "\"";
-        Log.d(TAG, "再次对比");
-        Log.d(TAG, "当前连接的: " + targetSSID);
-        Log.d(TAG, "传入的: " + ssid);
-        if (targetSSID.equals(ssid)) {
-            return true;
-        }
-
-        // 都无法匹配，返回不是
-        return false;
-    }
-
     @Deprecated
     public boolean is24GHzBandSupported() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -349,5 +337,29 @@ public class WiFIToolsManager {
         }
     }
 
+    public void registerReceiver(Context context, WifiCallBack wifiCallBack) {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        filter.addAction(WifiManager.NETWORK_IDS_CHANGED_ACTION);
+        filter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        if (mWifiReceiver == null) {
+            mWifiReceiver = new WifiReceiver();
+            mWifiReceiver.setWifiCallBack(wifiCallBack);
+        }
+        context.registerReceiver(mWifiReceiver, filter);
+    }
+
+
+    public void unregisterReceiver(Context context) {
+        if (mWifiReceiver != null) {
+            mWifiReceiver.setWifiCallBack(null);
+            context.unregisterReceiver(mWifiReceiver);
+            mWifiReceiver = null;
+        }
+    }
 
 }

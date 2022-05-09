@@ -22,6 +22,12 @@
         android:text="获取WIFI状态" />
 
     <Button
+        android:id="@+id/monitor_wifi_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="监听WIFI状态" />
+
+    <Button
         android:id="@+id/set_wifi_enabled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

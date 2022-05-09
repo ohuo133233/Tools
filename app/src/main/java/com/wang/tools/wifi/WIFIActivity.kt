@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wang.javatools.base.BaseActivity
 import com.wang.javatools.log.LogUtils
 import com.wang.javatools.net.wifi.WiFIToolsManager
+import com.wang.javatools.net.wifi.WifiCallBack
 import com.wang.javatools.permission.IPermissionCallBack
 import com.wang.javatools.permission.PermissionManager
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
@@ -42,11 +43,13 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
         val getWifiState = findViewById<Button>(R.id.get_wifi_state)
         val setWifiEnabled = findViewById<Button>(R.id.set_wifi_enabled)
         val updateAndGetWifiList = findViewById<Button>(R.id.update_and_get_wifi_list)
+        val monitorWIFIStatus = findViewById<Button>(R.id.monitor_wifi_status)
         mWifiListRecyclerView = findViewById(R.id.wifi_list)
 
         getPermission.setOnClickListener(this)
         getWifiState.setOnClickListener(this)
         setWifiEnabled.setOnClickListener(this)
+        monitorWIFIStatus.setOnClickListener(this)
         updateAndGetWifiList.setOnClickListener(this)
     }
 
@@ -89,22 +92,21 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
                 if (this.mutableList.get(position).SSID.equals("test")) {
                     LogUtils.d(TAG, "开始连接：test")
                     WiFIToolsManager.getInstance()
-                        .connectWifi("test", "", "1000", "12345678", 1000)
+                        .connectWifi("test", "12345678", object : WifiCallBack {
+                            override fun connectWifiSuccess() {
+                                LogUtils.d(TAG, "连接wifi成功")
+                            }
+                        })
 
                 } else {
                     LogUtils.d(TAG, "开始连接：HHT_GUEST")
                     WiFIToolsManager.getInstance()
-                        .connectWifi("HHT_GUEST", "", "1000", "honghekeji", 1000)
+                        .connectWifi("HHT_GUEST", "honghekeji", object : WifiCallBack {
+                            override fun connectWifiSuccess() {
+                                LogUtils.d(TAG, "连接wifi成功")
+                            }
+                        })
                 }
-// 无法在configuredNetworks里获取WIFI密码
-//                val configuredNetworks = WiFIToolsManager.getInstance().getConfiguredNetworks(this)
-//                LogUtils.d(TAG, "configuredNetworks： " + configuredNetworks.toString())
-//                configuredNetworks.forEach {
-//                    if (WiFIToolsManager.getInstance().isWifi(this.mutableList.get(position).SSID, it.SSID)) {
-//                        LogUtils.d(TAG, "找到之前WIFI保存的配置, SSID:" + it.SSID + " ,preSharedKey: " + it.preSharedKey)
-//
-//                    }
-//                }
             }
 
             holder.getItemView().setOnClickListener {
@@ -130,8 +132,21 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
             R.id.get_wifi_state -> getWifiState()
             R.id.set_wifi_enabled -> setWifiEnabled()
             R.id.update_and_get_wifi_list -> getWifiList()
+            R.id.monitor_wifi_status -> monitorWIFIStatus()
 
         }
+    }
+
+    private fun monitorWIFIStatus() {
+        WiFIToolsManager.getInstance().registerReceiver(this, object : WifiCallBack {
+            override fun openWifi() {
+                LogUtils.d(TAG, "openWifi")
+            }
+
+            override fun closeWifi() {
+                LogUtils.d(TAG, "closeWifi")
+            }
+        })
     }
 
 
@@ -150,17 +165,6 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
     private fun getWifiState() {
         val wifiState = WiFIToolsManager.getInstance().getWifiState()
         ToastUtils.showLongToast(this, "wifiState: $wifiState")
-    }
-
-    private fun getSSID() {
-        val permissionManager = PermissionManager(this)
-        if (permissionManager.isPermissionGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            val ssid = WiFIToolsManager.getInstance().ssid
-            ToastUtils.showLongToast(this, "ssid: $ssid")
-            LogUtils.e(TAG, "ssid: $ssid")
-        } else {
-            LogUtils.e(TAG, "没有获取位置权限")
-        }
     }
 
     private fun getPermission() {
@@ -183,9 +187,7 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
                     ToastUtils.showShortToast(this@WIFIActivity, "alreadyObtainedPermission")
                 }
             },
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.WRITE_SETTINGS,
-            Manifest.permission.CHANGE_NETWORK_STATE,
+            Manifest.permission.ACCESS_FINE_LOCATION
         )
     }
 
@@ -193,9 +195,5 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
         mutableList.addAll(WiFIToolsManager.getInstance().getWifiList())
         updateRecyclerView()
         mRecyclerViewAdapter.notifyDataSetChanged()
-    }
-
-    private fun connectWifi(ssid: String, password: String) {
-        WiFIToolsManager.getInstance().connectWifi(ssid, "", "1000", password, 1000)
     }
 }
