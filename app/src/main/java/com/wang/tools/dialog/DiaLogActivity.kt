@@ -38,7 +38,14 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
             .setText(R.id.right_button, "取消")
             .setCanceledOnTouchOutside(true)
             .build()
-        dialog.show()
+
+        Thread {
+            run {
+                dialog.show()
+
+            }
+        }.start()
+
     }
 
     private fun fragmentDialog() {

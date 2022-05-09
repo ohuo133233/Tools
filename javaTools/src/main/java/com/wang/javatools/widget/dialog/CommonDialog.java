@@ -2,6 +2,7 @@ package com.wang.javatools.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,11 +54,14 @@ import com.wang.javatools.base.LifecycleObserver;
  * 找不到***方法，原因这个view不是继承***
  * 请查看传入的View是否带有***的方法，如果有直接修改当前方法或者增加重载方法
  * <p>
+ * 5.支持在子线程弹出时切换到主线程
  */
 
 public class CommonDialog extends Dialog implements LifecycleObserver {
     private static final String TAG = "CommonDialog";
     private Build mBuild;
+    private Context mContext;
+    private Handler mHandler = new Handler();
 
     /**
      * 提供给Activity创建的Dialog的构造方法
@@ -70,7 +74,7 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         super(fragmentActivity, build.mStyle);
 
         fragmentActivity.getLifecycle().addObserver(this);
-
+        mContext = fragmentActivity;
         mBuild = build;
         build();
     }
@@ -86,7 +90,7 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         super(fragment.getContext(), build.mStyle);
 
         fragment.getLifecycle().addObserver(this);
-
+        mContext = fragment.getContext();
         mBuild = build;
         build();
     }
@@ -103,7 +107,9 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
 
         build.mLifecycle.addObserver(this);
         mBuild = build;
+        mContext = context;
         build();
+
 
     }
 
@@ -124,6 +130,22 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         return this.mBuild.mRoot.findViewById(viewId);
     }
 
+
+    @Override
+    public void show() {
+        // 判断是否是在主线程，如果是直接弹出，否则切换到主线程再弹出
+        if (Thread.currentThread().getName().equals(mContext.getMainLooper().getThread().getName())) {
+            super.show();
+        } else {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    show();
+                }
+            });
+        }
+    }
+
     /**
      * 自动处理生命周期，当Activity销毁时销毁自己
      * 解决忘记调用dismiss 出现的异常
@@ -135,12 +157,16 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     public void onDestroy(@NonNull LifecycleOwner owner) {
         // 经过测试多次调用dismiss()没有异常
         Log.e(TAG, "自动销毁Dialog");
+        mContext = null;
+        mHandler.removeCallbacksAndMessages(null);
         this.dismiss();
     }
 
     @Override
     public void dismiss() {
         Log.d(TAG, "dismiss");
+        mContext = null;
+        mHandler.removeCallbacksAndMessages(null);
         super.dismiss();
     }
 
