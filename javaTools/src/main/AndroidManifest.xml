@@ -22,10 +22,7 @@
             android:enabled="true"
             android:exported="true"></receiver>
 
-        <activity
-            android:name=".camera.CameraActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Design.NoActionBar" />
+
 
         <service
             android:name=".base.MyService"

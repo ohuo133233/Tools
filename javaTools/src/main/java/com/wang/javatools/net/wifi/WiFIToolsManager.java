@@ -6,21 +6,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
-import android.net.NetworkRequest;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.net.wifi.WifiNetworkSpecifier;
 import android.os.Build;
-import android.os.PatternMatcher;
 import android.provider.Settings;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.wang.javatools.BuildConfig;
 import com.wang.javatools.manager.AppManager;
@@ -210,80 +202,6 @@ public class WiFIToolsManager {
 
     }
 
-    /**
-     * 连接指定的WIFI
-     * 连接步骤：
-     * 1.判断是否打开WIFI
-     * 2.判断是否连接WIFI中
-     * 3.连接
-     *
-     * @param ssid     目标SSID
-     * @param password 目标密码
-     */
-    public void connectWifi(String ssid, String password, WifiCallBack wifiCallBack) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-
-            WifiNetworkSpecifier wifiNetworkSpecifier = new WifiNetworkSpecifier.Builder()
-                    .setSsidPattern(new PatternMatcher(ssid, PatternMatcher.PATTERN_PREFIX))
-                    .setWpa2Passphrase(password)
-                    .build();
-
-            NetworkRequest networkRequest = new NetworkRequest.Builder()
-                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                    .setNetworkSpecifier(wifiNetworkSpecifier)
-                    .build();
-
-            mConnectivityManager.requestNetwork(networkRequest, new ConnectivityManager.NetworkCallback() {
-                @Override
-                public void onBlockedStatusChanged(@NonNull Network network, boolean blocked) {
-                    super.onBlockedStatusChanged(network, blocked);
-                    if (wifiCallBack != null) {
-                        wifiCallBack.connectWifiFail();
-                    }
-                }
-
-                @Override
-                public void onAvailable(@NonNull Network network) {
-                    super.onAvailable(network);
-                    boolean connectWifi = isConnectWifi(ssid);
-                    Log.d(TAG, "connectWifi: " + connectWifi);
-                    if (connectWifi) {
-                        wifiCallBack.connectWifiSuccess();
-                    } else {
-                        wifiCallBack.connectWifiFail();
-                    }
-                }
-
-
-            });
-
-        } else {
-            if (isClose()) {
-                Log.e(TAG, "请打开WIFI");
-            }
-            Log.d(TAG, "ssid: " + ssid);
-            Log.d(TAG, "password: " + password);
-
-            mWifiManager.disconnect();
-            WifiConfiguration config = new WifiConfiguration();
-            // wifi SSID
-            config.SSID = "\"" + ssid + "\"";
-            // wifi密码
-            config.preSharedKey = "\"" + password + "\"";
-            config.hiddenSSID = true;
-            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
-            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-            config.status = WifiConfiguration.Status.ENABLED;
-            int netId = mWifiManager.addNetwork(config);
-            boolean result = mWifiManager.enableNetwork(netId, true);
-            Log.d(TAG, "result: " + result);
-        }
-    }
 
     /**
      * 当前连接的WIFI是否指定连接的WIFI

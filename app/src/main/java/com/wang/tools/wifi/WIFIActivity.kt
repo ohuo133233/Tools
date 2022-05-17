@@ -87,27 +87,6 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
                 holder.getView<TextView>(R.id.connect).text = "连接"
             }
 
-            holder.getView<Button>(R.id.connect).setOnClickListener {
-
-                if (this.mutableList.get(position).SSID.equals("test")) {
-                    LogUtils.d(TAG, "开始连接：test")
-                    WiFIToolsManager.getInstance()
-                        .connectWifi("test", "12345678", object : WifiCallBack {
-                            override fun connectWifiSuccess() {
-                                LogUtils.d(TAG, "连接wifi成功")
-                            }
-                        })
-
-                } else {
-                    LogUtils.d(TAG, "开始连接：HHT_GUEST")
-                    WiFIToolsManager.getInstance()
-                        .connectWifi("HHT_GUEST", "honghekeji", object : WifiCallBack {
-                            override fun connectWifiSuccess() {
-                                LogUtils.d(TAG, "连接wifi成功")
-                            }
-                        })
-                }
-            }
 
             holder.getItemView().setOnClickListener {
                 val intent = Intent(this, WIFIMessageActivity::class.java)

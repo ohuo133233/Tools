@@ -6,7 +6,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wang.javatools.camera.CameraActivity
 import com.wang.tools.R
 import com.wang.tools.dialog.DiaLogActivity
 import com.wang.tools.language.LanguageActivity
@@ -70,8 +69,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startCameraActivity() {
-        val intent = Intent(this, CameraActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, CameraActivity::class.java)
+//        startActivity(intent)
     }
 
     private fun startLanguageActivity() {

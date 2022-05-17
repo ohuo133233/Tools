@@ -165,8 +165,6 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     @Override
     public void dismiss() {
         Log.d(TAG, "dismiss");
-        mContext = null;
-        mHandler.removeCallbacksAndMessages(null);
         super.dismiss();
     }
 
