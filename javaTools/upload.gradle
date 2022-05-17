@@ -1,7 +1,7 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-def GROUP_ID = 'com.kotlinx'
+def GROUP_ID = 'io.github.ohuo133233'
 def ARTIFACT_ID = 'JavaTools'
 def VERSION_NAME = '1.0.0'
 def DESCRIPTION = '一个简化Android开发的java库'
@@ -74,7 +74,7 @@ publishing {
                 }
                 developers {
                     developer {
-                        id = 'wangxiansheng'
+                        id = 'my_maven'
                         name = 'wangxiansheng'
                         email = '1441289824@qq.com'
                     }
