@@ -1,7 +1,6 @@
-package com.wang.tools.recyclerview
+package com.wang.tools.widget.recyclerview
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.wang.tools.viewpager
+package com.wang.tools.widget.viewpager
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

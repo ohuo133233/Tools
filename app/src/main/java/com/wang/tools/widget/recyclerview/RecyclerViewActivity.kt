@@ -1,4 +1,4 @@
-package com.wang.tools.recyclerview
+package com.wang.tools.widget.recyclerview
 
 import android.content.Intent
 import android.os.Bundle

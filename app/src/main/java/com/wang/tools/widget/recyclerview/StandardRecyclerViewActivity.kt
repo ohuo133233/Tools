@@ -1,4 +1,4 @@
-package com.wang.tools.recyclerview
+package com.wang.tools.widget.recyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
-import com.wang.javatools.widget.recyclerview.RecyclerViewSplitLine
 import com.wang.tools.R
 
 class StandardRecyclerViewActivity : AppCompatActivity() {

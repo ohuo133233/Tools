@@ -9,12 +9,10 @@
     <uses-permission android:name="android.permission.SEND_SMS" /> <!-- 读写外部分区权限，Android10不需要获取 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--WIFI权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- WIFI权限 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
 
     <application
         android:name=".MyApplication"
@@ -25,31 +23,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tools">
         <activity
+            android:name=".widget.popupwindow.PopupWindowActivity"
+            android:exported="false" />
+        <activity
             android:name=".wifi.WIFIMessageActivity"
             android:exported="false" />
         <activity
             android:name=".language.LanguageActivity"
             android:exported="false" />
         <activity
-            android:name=".recyclerview.DragSortActivity"
+            android:name=".widget.recyclerview.DragSortActivity"
             android:exported="false" />
         <activity
-            android:name=".recyclerview.RightSlideDeleteActivity"
+            android:name=".widget.recyclerview.RightSlideDeleteActivity"
             android:exported="false" />
         <activity
-            android:name=".recyclerview.MultiLayoutActivity"
+            android:name=".widget.recyclerview.MultiLayoutActivity"
             android:exported="false" />
         <activity
-            android:name=".recyclerview.AddItemDecorationActivity"
+            android:name=".widget.recyclerview.AddItemDecorationActivity"
             android:exported="false" />
         <activity
-            android:name=".recyclerview.StandardRecyclerViewActivity"
+            android:name=".widget.recyclerview.StandardRecyclerViewActivity"
             android:exported="false" />
         <activity
             android:name=".room.RoomDemoActivity"
             android:exported="false" />
         <activity
-            android:name=".viewpager.ViewPager2Activity"
+            android:name=".widget.viewpager.ViewPager2Activity"
             android:exported="false" />
         <activity
             android:name=".wifi.WIFIActivity"
@@ -58,13 +59,13 @@
             android:name=".other.OtherActivity"
             android:exported="false" />
         <activity
-            android:name=".recyclerview.RecyclerViewActivity"
+            android:name=".widget.recyclerview.RecyclerViewActivity"
             android:exported="false" />
         <activity
             android:name=".net.NetActivity"
             android:exported="false" />
         <activity
-            android:name=".dialog.DiaLogActivity"
+            android:name=".widget.dialog.DiaLogActivity"
             android:exported="false" />
         <activity
             android:name=".net.NetStateChangeActivity"

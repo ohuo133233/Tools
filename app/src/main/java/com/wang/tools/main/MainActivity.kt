@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wang.tools.R
-import com.wang.tools.dialog.DiaLogActivity
 import com.wang.tools.language.LanguageActivity
 import com.wang.tools.log.LogActivity
 import com.wang.tools.main.RecyclerViewAdapter.OnClickListener
@@ -15,9 +14,10 @@ import com.wang.tools.net.NetActivity
 import com.wang.tools.net.NetStateChangeActivity
 import com.wang.tools.other.OtherActivity
 import com.wang.tools.permission.PermissionActivity
-import com.wang.tools.recyclerview.RecyclerViewActivity
-import com.wang.tools.room.RoomDemoActivity
-import com.wang.tools.viewpager.ViewPager2Activity
+import com.wang.tools.widget.dialog.DiaLogActivity
+import com.wang.tools.widget.popupwindow.PopupWindowActivity
+import com.wang.tools.widget.recyclerview.RecyclerViewActivity
+import com.wang.tools.widget.viewpager.ViewPager2Activity
 import com.wang.tools.wifi.WIFIActivity
 
 
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             "Room数据库",
             "中英文语言切换",
             "相机",
+            "popupWindow",
         )
         val adapter = RecyclerViewAdapter(list, this)
 
@@ -60,12 +61,17 @@ class MainActivity : AppCompatActivity() {
                     7 -> startWIFIActivity()
                     8 -> startViewPagerActivity()
                     9 -> startRoomDemoActivity()
-                    10-> startLanguageActivity()
-                    11-> startCameraActivity()
-
+                    10 -> startLanguageActivity()
+                    11 -> startCameraActivity()
+                    12 -> startPopupWindow()
                 }
             }
         })
+    }
+
+    private fun startPopupWindow() {
+        val intent = Intent(this, PopupWindowActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startCameraActivity() {
@@ -124,8 +130,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startRoomDemoActivity() {
-        val intent = Intent(this, RoomDemoActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, RoomDemoActivity::class.java)
+//        startActivity(intent)
     }
 
 

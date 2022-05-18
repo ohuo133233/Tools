@@ -1,22 +1,20 @@
-package com.wang.tools.recyclerview
+package com.wang.tools.widget.recyclerview
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
 import com.wang.tools.R
-import androidx.recyclerview.widget.ItemTouchHelper
 import java.util.*
 
-
-class RightSlideDeleteActivity : AppCompatActivity() {
+class DragSortActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_right_slide_delete)
-
+        setContentView(R.layout.activity_drag_sort)
         var list = mutableListOf(
             "1   2   3",
             "4   5   6",

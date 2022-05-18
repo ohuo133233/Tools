@@ -1,4 +1,4 @@
-package com.wang.tools.dialog
+package com.wang.tools.widget.dialog
 
 import android.os.Bundle
 import android.view.View
