@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
-import com.wang.javatools.widget.viewpager.BaseViewPagerAdapter
+import com.wang.javatools.widget.viewpager.CommonViewPagerAdapter
 import com.wang.tools.R
 
 class ViewPager2Activity : AppCompatActivity() {
@@ -24,7 +24,7 @@ class ViewPager2Activity : AppCompatActivity() {
         )
 
         val viewPager = findViewById<ViewPager2>(R.id.view_pager)
-        val adapter = BaseViewPagerAdapter.Build<String>()
+        val adapter = CommonViewPagerAdapter.Build<String>()
             .setContext(this)
             .setDataList(list)
             .setLayoutId(R.layout.view_page_item)

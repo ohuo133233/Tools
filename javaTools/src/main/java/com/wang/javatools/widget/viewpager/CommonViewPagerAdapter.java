@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BaseViewPagerAdapter<T> extends RecyclerView.Adapter<BaseViewPagerViewHolder> {
+public class CommonViewPagerAdapter<T> extends RecyclerView.Adapter<CommonViewPagerViewHolder> {
     private static final String TAG = "BaseRecyclerViewAdapter";
     @NonNull
     private Context mContext;
@@ -25,20 +25,20 @@ public class BaseViewPagerAdapter<T> extends RecyclerView.Adapter<BaseViewPagerV
     private BaseBaseViewPagerAdapterBackCall mBaseBaseViewPagerAdapterBackCall;
     private Build<T> mBuild;
 
-    private BaseViewPagerAdapter(@NonNull Build<T> build) {
+    private CommonViewPagerAdapter(@NonNull Build<T> build) {
         mBuild = build;
         build();
     }
 
     @NonNull
     @Override
-    public BaseViewPagerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommonViewPagerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layout = LayoutInflater.from(mContext).inflate(this.mLayoutId, parent, false);
-        return new BaseViewPagerViewHolder(layout);
+        return new CommonViewPagerViewHolder(layout);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseViewPagerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CommonViewPagerViewHolder holder, int position) {
         mHolder = holder;
         if (mBaseBaseViewPagerAdapterBackCall != null) {
             mBaseBaseViewPagerAdapterBackCall.onBindViewHolder(holder, position);
@@ -64,7 +64,7 @@ public class BaseViewPagerAdapter<T> extends RecyclerView.Adapter<BaseViewPagerV
     }
 
     public interface BaseBaseViewPagerAdapterBackCall {
-        void onBindViewHolder(@NonNull BaseViewPagerViewHolder holder, int position);
+        void onBindViewHolder(@NonNull CommonViewPagerViewHolder holder, int position);
     }
 
 
@@ -92,8 +92,8 @@ public class BaseViewPagerAdapter<T> extends RecyclerView.Adapter<BaseViewPagerV
             return this;
         }
 
-        public BaseViewPagerAdapter<T> build() {
-            return new BaseViewPagerAdapter<>(this);
+        public CommonViewPagerAdapter<T> build() {
+            return new CommonViewPagerAdapter<>(this);
         }
     }
 }

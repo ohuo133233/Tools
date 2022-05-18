@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * RecyclerView 分割线
  */
-public class RecyclerViewSplitLine extends RecyclerView.ItemDecoration {
+public class CommonRecyclerViewSplitLine extends RecyclerView.ItemDecoration {
 
     private Paint mPaint;
     private Drawable mDivider;
@@ -32,7 +32,7 @@ public class RecyclerViewSplitLine extends RecyclerView.ItemDecoration {
      * @param context     上下文
      * @param orientation 列表方向
      */
-    public RecyclerViewSplitLine(@NonNull Context context, int orientation) {
+    public CommonRecyclerViewSplitLine(@NonNull Context context, int orientation) {
         if (orientation != LinearLayoutManager.VERTICAL && orientation != LinearLayoutManager.HORIZONTAL) {
             throw new IllegalArgumentException("请输入正确的参数！");
         }
@@ -50,7 +50,7 @@ public class RecyclerViewSplitLine extends RecyclerView.ItemDecoration {
      * @param orientation 列表方向
      * @param drawableId  分割线图片
      */
-    public RecyclerViewSplitLine(@NonNull Context context, int orientation, int drawableId) {
+    public CommonRecyclerViewSplitLine(@NonNull Context context, int orientation, int drawableId) {
         this(context, orientation);
         mDivider = ContextCompat.getDrawable(context, drawableId);
         mDividerHeight = mDivider.getIntrinsicHeight();
@@ -64,7 +64,7 @@ public class RecyclerViewSplitLine extends RecyclerView.ItemDecoration {
      * @param dividerHeight 分割线高度
      * @param dividerColor  分割线颜色
      */
-    public RecyclerViewSplitLine(@NonNull Context context, int orientation, int dividerHeight, int dividerColor) {
+    public CommonRecyclerViewSplitLine(@NonNull Context context, int orientation, int dividerHeight, int dividerColor) {
         this(context, orientation);
         mDividerHeight = dividerHeight;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

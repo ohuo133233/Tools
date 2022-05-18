@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.wang.javatools.widget.dialog.CommonDialog
-import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
+import com.wang.javatools.widget.recyclerview.CommonRecyclerViewAdapter
 import com.wang.tools.R
 
 
@@ -68,7 +68,7 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
         )
 
         val viewPager = dialog.findViewById<ViewPager2>(R.id.view_pager)
-        val adapter = BaseRecyclerViewAdapter.Build<String>()
+        val adapter = CommonRecyclerViewAdapter.Build<String>()
             .setContext(this)
             .setDataList(list)
             .setLayoutId(R.layout.view_page_item)

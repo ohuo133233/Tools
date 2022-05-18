@@ -16,14 +16,14 @@ import com.wang.javatools.net.wifi.WiFIToolsManager
 import com.wang.javatools.net.wifi.WifiCallBack
 import com.wang.javatools.permission.IPermissionCallBack
 import com.wang.javatools.permission.PermissionManager
-import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
+import com.wang.javatools.widget.recyclerview.CommonRecyclerViewAdapter
 import com.wang.javatools.widget.toast.ToastUtils
 import com.wang.tools.R
 
 
 class WIFIActivity : BaseActivity(), View.OnClickListener {
     private lateinit var mutableList: MutableList<ScanResult>
-    private lateinit var mRecyclerViewAdapter: BaseRecyclerViewAdapter<ScanResult>
+    private lateinit var mRecyclerViewAdapter: CommonRecyclerViewAdapter<ScanResult>
     private lateinit var mWifiListRecyclerView: RecyclerView
     private var isEnabled = false
 
@@ -54,7 +54,7 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initRecyclerView() {
-        mRecyclerViewAdapter = BaseRecyclerViewAdapter.Build<ScanResult>()
+        mRecyclerViewAdapter = CommonRecyclerViewAdapter.Build<ScanResult>()
             .setContext(this)
             .setLayoutId(R.layout.recycler_wifi_item)
             .setDataList(mutableList)

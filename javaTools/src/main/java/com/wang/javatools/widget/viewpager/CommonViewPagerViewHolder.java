@@ -1,4 +1,4 @@
-package com.wang.javatools.widget.recyclerview;
+package com.wang.javatools.widget.viewpager;
 
 import android.view.View;
 
@@ -6,14 +6,10 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BaseRecyclerViewHolder extends RecyclerView.ViewHolder {
+public class CommonViewPagerViewHolder extends RecyclerView.ViewHolder {
 
-    public BaseRecyclerViewHolder(@NonNull View itemView) {
+    public CommonViewPagerViewHolder(@NonNull View itemView) {
         super(itemView);
-    }
-
-    public View getItemView() {
-        return itemView;
     }
 
     public <T extends View> T getView(@IdRes int viewId) {

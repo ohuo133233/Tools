@@ -17,12 +17,11 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application>
+
         <receiver
             android:name=".net.wifi.WifiReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
-
-
+            android:exported="true" />
 
         <service
             android:name=".base.MyService"

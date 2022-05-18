@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
+import com.wang.javatools.widget.recyclerview.CommonRecyclerViewAdapter
 import com.wang.tools.R
 import java.util.*
 
@@ -38,7 +38,7 @@ class DragSortActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
 
 
-        val recyclerViewAdapter = BaseRecyclerViewAdapter.Build<String>()
+        val recyclerViewAdapter = CommonRecyclerViewAdapter.Build<String>()
             .setContext(this)
             .setLayoutId(R.layout.recycler_text_item)
             .setDataList(list)

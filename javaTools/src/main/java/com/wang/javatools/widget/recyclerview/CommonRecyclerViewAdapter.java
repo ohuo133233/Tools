@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @param <T> 类型
  */
-public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder> {
+public class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRecyclerViewHolder> {
     private static final String TAG = "BaseRecyclerViewAdapter";
 
     public static final int TYPE_ONE = 1;
@@ -48,7 +48,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
     private boolean isMultiLayout;
     private ArrayList<Integer> mLayoutIdList;
 
-    private BaseRecyclerViewAdapter(@NonNull Build<T> build) {
+    private CommonRecyclerViewAdapter(@NonNull Build<T> build) {
         mBuild = build;
         this.mContext = mBuild.mContext;
         this.mLayoutId = mBuild.mLayoutId;
@@ -62,31 +62,31 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
 
     @NonNull
     @Override
-    public BaseRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommonRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         if (!isMultiLayout) {
             mRoot = LayoutInflater.from(mContext).inflate(this.mLayoutId, parent, false);
-            return new BaseRecyclerViewHolder(mRoot);
+            return new CommonRecyclerViewHolder(mRoot);
         } else {
             switch (viewType) {
                 case TYPE_ONE:
                     mRoot = LayoutInflater.from(mContext).inflate(mLayoutIdList.get(0), parent, false);
-                    return new BaseRecyclerViewHolder(mRoot);
+                    return new CommonRecyclerViewHolder(mRoot);
                 case TYPE_TWO:
                     mRoot = LayoutInflater.from(mContext).inflate(this.mLayoutIdList.get(1), parent, false);
-                    return new BaseRecyclerViewHolder(mRoot);
+                    return new CommonRecyclerViewHolder(mRoot);
                 case TYPE_THREE:
                     mRoot = LayoutInflater.from(mContext).inflate(this.mLayoutIdList.get(2), parent, false);
-                    return new BaseRecyclerViewHolder(mRoot);
+                    return new CommonRecyclerViewHolder(mRoot);
                 default:
                     mRoot = LayoutInflater.from(mContext).inflate(this.mLayoutIdList.get(0), parent, false);
-                    return new BaseRecyclerViewHolder(mRoot);
+                    return new CommonRecyclerViewHolder(mRoot);
             }
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseRecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CommonRecyclerViewHolder holder, int position) {
         mHolder = holder;
         if (mBaseRecyclerViewAdapterBackCall != null) {
             mBaseRecyclerViewAdapterBackCall.onBindViewHolder(holder, position);
@@ -120,7 +120,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
     }
 
     public interface BaseRecyclerViewAdapterBackCall {
-        void onBindViewHolder(@NonNull BaseRecyclerViewHolder holder, int position);
+        void onBindViewHolder(@NonNull CommonRecyclerViewHolder holder, int position);
     }
 
 
@@ -159,8 +159,8 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
             return this;
         }
 
-        public BaseRecyclerViewAdapter<T> build() {
-            return new BaseRecyclerViewAdapter<>(this);
+        public CommonRecyclerViewAdapter<T> build() {
+            return new CommonRecyclerViewAdapter<>(this);
         }
     }
 }

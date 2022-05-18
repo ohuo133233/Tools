@@ -10,3 +10,5 @@
 6.封装data层，为KV类型，为顶层调用，底层可以使用MMKV和DataStore、SP。此类为顶层抽象类忽略，底层框架
 7.初始化的时候是debug模式，输出本机和app的信息
 8.中英文实现不希望在BaseActivity
+
+implementation 'io.github.ohuo133233:JavaTools:1.0.0'

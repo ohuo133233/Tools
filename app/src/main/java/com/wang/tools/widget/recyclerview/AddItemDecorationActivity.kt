@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
-import com.wang.javatools.widget.recyclerview.RecyclerViewSplitLine
+import com.wang.javatools.widget.recyclerview.CommonRecyclerViewAdapter
+import com.wang.javatools.widget.recyclerview.CommonRecyclerViewSplitLine
 import com.wang.tools.R
 
 class AddItemDecorationActivity : AppCompatActivity() {
@@ -37,7 +37,7 @@ class AddItemDecorationActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
 
 
-        val recyclerViewAdapter = BaseRecyclerViewAdapter.Build<String>()
+        val recyclerViewAdapter = CommonRecyclerViewAdapter.Build<String>()
             .setContext(this)
             .setLayoutId(R.layout.recycler_text_item)
             .setDataList(list)
@@ -51,7 +51,12 @@ class AddItemDecorationActivity : AppCompatActivity() {
 
 
         // 这句就是添加我们自定义的分隔线
-        recyclerView.addItemDecoration(RecyclerViewSplitLine(this, LinearLayoutManager.HORIZONTAL))
+        recyclerView.addItemDecoration(
+            CommonRecyclerViewSplitLine(
+                this,
+                LinearLayoutManager.HORIZONTAL
+            )
+        )
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = recyclerViewAdapter
     }

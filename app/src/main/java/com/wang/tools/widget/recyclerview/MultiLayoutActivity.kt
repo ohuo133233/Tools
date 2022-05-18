@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wang.javatools.widget.recyclerview.BaseRecyclerViewAdapter
+import com.wang.javatools.widget.recyclerview.CommonRecyclerViewAdapter
 import com.wang.tools.R
 
 class MultiLayoutActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ class MultiLayoutActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
 
 
-        val recyclerViewAdapter = BaseRecyclerViewAdapter.Build<String>()
+        val recyclerViewAdapter = CommonRecyclerViewAdapter.Build<String>()
             .setContext(this)
             .setLayoutIdList(R.layout.recycler_text_item, R.layout.recycler_button_item,R.layout.recycler_image_item)
             .setDataList(list)
