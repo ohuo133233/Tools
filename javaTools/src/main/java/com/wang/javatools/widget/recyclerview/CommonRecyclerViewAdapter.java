@@ -37,7 +37,7 @@ public class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRec
     @LayoutRes
     private final int mLayoutId;
     @NonNull
-    private final List<T> mDataList;
+    private List<T> mDataList;
 
     private RecyclerView.ViewHolder mHolder;
     private BaseRecyclerViewAdapterBackCall mBaseRecyclerViewAdapterBackCall;
@@ -88,7 +88,7 @@ public class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRec
     @Override
     public void onBindViewHolder(@NonNull CommonRecyclerViewHolder holder, int position) {
         mHolder = holder;
-        if (mBaseRecyclerViewAdapterBackCall != null) {
+        if (mBaseRecyclerViewAdapterBackCall != null && mDataList.size() != 0) {
             mBaseRecyclerViewAdapterBackCall.onBindViewHolder(holder, position);
         }
     }

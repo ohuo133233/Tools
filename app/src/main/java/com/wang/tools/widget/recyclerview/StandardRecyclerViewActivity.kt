@@ -1,19 +1,47 @@
 package com.wang.tools.widget.recyclerview
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wang.javatools.widget.recyclerview.CommonRecyclerViewAdapter
 import com.wang.tools.R
 
-class StandardRecyclerViewActivity : AppCompatActivity() {
+class StandardRecyclerViewActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var list: MutableList<String>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerViewAdapter: CommonRecyclerViewAdapter<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_standard_recycler_view)
+        initView()
+        initData()
+        initRecyclerView()
+    }
 
-        var list = listOf(
+    private fun initRecyclerView() {
+        recyclerViewAdapter = CommonRecyclerViewAdapter.Build<String>()
+            .setContext(this)
+            .setLayoutId(R.layout.recycler_text_item)
+            .setDataList(list)
+            .build()
+
+        recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
+            holder.getView<TextView>(
+                R.id.text_view
+            ).text = list[position]
+        }
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = recyclerViewAdapter
+
+    }
+
+    private fun initData() {
+        list = mutableListOf(
             "1   2   3",
             "4   5   6",
             "7   8   9",
@@ -32,23 +60,36 @@ class StandardRecyclerViewActivity : AppCompatActivity() {
             "46 47 48",
         )
 
+    }
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+    private fun initView() {
+        recyclerView = findViewById(R.id.recycler_view)
+        val add = findViewById<Button>(R.id.add)
+        val remove = findViewById<Button>(R.id.remove)
+
+        add.setOnClickListener(this)
+        remove.setOnClickListener(this)
+    }
 
 
-        val recyclerViewAdapter = CommonRecyclerViewAdapter.Build<String>()
-            .setContext(this)
-            .setLayoutId(R.layout.recycler_text_item)
-            .setDataList(list)
-            .build()
-
-        recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
-            holder.getView<TextView>(
-                R.id.text_view
-            ).text = list[position]
+    override fun onClick(v: View?) {
+        if (v == null) {
+            return
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = recyclerViewAdapter
+        when (v.id) {
+            R.id.add -> add()
+            R.id.remove -> remove()
+        }
+    }
+
+    private fun add() {
+        list.add("新增数据")
+        recyclerViewAdapter.notifyDataSetChanged()
+    }
+
+    private fun remove() {
+        list.removeAt(list.size - 1)
+        recyclerViewAdapter.notifyDataSetChanged()
     }
 }

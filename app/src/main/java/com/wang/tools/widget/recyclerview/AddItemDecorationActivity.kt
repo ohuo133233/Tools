@@ -51,12 +51,7 @@ class AddItemDecorationActivity : AppCompatActivity() {
 
 
         // 这句就是添加我们自定义的分隔线
-        recyclerView.addItemDecoration(
-            CommonRecyclerViewSplitLine(
-                this,
-                LinearLayoutManager.HORIZONTAL
-            )
-        )
+        recyclerView.addItemDecoration(CommonRecyclerViewSplitLine(this, LinearLayoutManager.HORIZONTAL))
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = recyclerViewAdapter
     }

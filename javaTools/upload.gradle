@@ -3,7 +3,7 @@ apply plugin: 'signing'
 
 def GROUP_ID = 'io.github.ohuo133233'
 def ARTIFACT_ID = 'JavaTools'
-def VERSION_NAME = '1.0.1'
+def VERSION_NAME = '1.0.2'
 def DESCRIPTION = '一个简化Android开发的java库'
 def GIT_LOCATION = 'github.com/ohuo133233/Tools'
 def GIT_LOCATION_URL = 'https://' + GIT_LOCATION
