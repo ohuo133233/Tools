@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class CommonViewPagerAdapter<T> extends RecyclerView.Adapter<CommonViewPagerViewHolder> {
-    private static final String TAG = "BaseRecyclerViewAdapter";
+    private static final String TAG = "CommonViewPagerAdapter";
     @NonNull
     private Context mContext;
     @LayoutRes

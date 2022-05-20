@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 使用指南
@@ -22,37 +21,33 @@ import java.util.List;
  * <p>
  * 注意事项
  * 1.当前BaseRecyclerViewAdapter设置长度最小长度为1
- *
- * @param <T> 类型
  */
-public class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRecyclerViewHolder> {
-    private static final String TAG = "BaseRecyclerViewAdapter";
+public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecyclerViewHolder> {
+    private static final String TAG = "CommonRecyclerViewAdapter";
 
     public static final int TYPE_ONE = 1;
     public static final int TYPE_TWO = 2;
     public static final int TYPE_THREE = 3;
 
+    private int mSize;
+
     @NonNull
     private final Context mContext;
     @LayoutRes
     private final int mLayoutId;
-    @NonNull
-    private List<T> mDataList;
-
-    private RecyclerView.ViewHolder mHolder;
     private BaseRecyclerViewAdapterBackCall mBaseRecyclerViewAdapterBackCall;
-    private final Build<T> mBuild;
+    private final Build mBuild;
     // RecyclerView的根布局
     private View mRoot;
     // 是否是多布局
     private boolean isMultiLayout;
     private ArrayList<Integer> mLayoutIdList;
 
-    private CommonRecyclerViewAdapter(@NonNull Build<T> build) {
+    private CommonRecyclerViewAdapter(@NonNull Build build) {
         mBuild = build;
         this.mContext = mBuild.mContext;
         this.mLayoutId = mBuild.mLayoutId;
-        this.mDataList = mBuild.mDataList;
+        this.mSize = mBuild.mSize;
 
         if (mBuild.mLayoutIdList != null && !mBuild.mLayoutIdList.isEmpty()) {
             isMultiLayout = true;
@@ -87,8 +82,7 @@ public class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRec
 
     @Override
     public void onBindViewHolder(@NonNull CommonRecyclerViewHolder holder, int position) {
-        mHolder = holder;
-        if (mBaseRecyclerViewAdapterBackCall != null && mDataList.size() != 0) {
+        if (mBaseRecyclerViewAdapterBackCall != null) {
             mBaseRecyclerViewAdapterBackCall.onBindViewHolder(holder, position);
         }
     }
@@ -110,10 +104,13 @@ public class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRec
 
     @Override
     public int getItemCount() {
-        Log.d(TAG, "mDataList size: " + mDataList.size());
-        return Math.max(mDataList.size(), 1);
+        Log.d(TAG, "mSize: " + mSize);
+        return mSize;
     }
 
+    public void setSize(int mSize) {
+        this.mSize = mSize;
+    }
 
     public void setBaseRecyclerViewAdapterBackCall(BaseRecyclerViewAdapterBackCall baseRecyclerViewAdapterBackCall) {
         this.mBaseRecyclerViewAdapterBackCall = baseRecyclerViewAdapterBackCall;
@@ -124,29 +121,25 @@ public class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRec
     }
 
 
-    public static class Build<T> {
+    public static class Build {
         @NonNull
         private Context mContext;
         @LayoutRes
         private int mLayoutId;
-        // 数据
-        @NonNull
-        private List<T> mDataList;
+
+        private int mSize = 1;
+
         // 多布局的布局List
         private ArrayList<Integer> mLayoutIdList;
 
-        public Build<T> setContext(@NonNull Context mContext) {
+        public Build setContext(@NonNull Context mContext) {
             this.mContext = mContext;
             return this;
         }
 
-        public Build<T> setLayoutId(@LayoutRes int mLayoutId) {
-            this.mLayoutId = mLayoutId;
-            return this;
-        }
 
-        public Build<T> setDataList(@NonNull List<T> mDataList) {
-            this.mDataList = mDataList;
+        public Build setLayoutId(@LayoutRes int mLayoutId) {
+            this.mLayoutId = mLayoutId;
             return this;
         }
 
@@ -159,8 +152,13 @@ public class CommonRecyclerViewAdapter<T> extends RecyclerView.Adapter<CommonRec
             return this;
         }
 
-        public CommonRecyclerViewAdapter<T> build() {
-            return new CommonRecyclerViewAdapter<>(this);
+        public Build setSize(int mSize) {
+            this.mSize = mSize;
+            return this;
+        }
+
+        public CommonRecyclerViewAdapter build() {
+            return new CommonRecyclerViewAdapter(this);
         }
     }
 }
