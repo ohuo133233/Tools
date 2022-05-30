@@ -19,10 +19,12 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
         val standardDialog = findViewById<Button>(R.id.standard_dialog)
         val fragmentDialog = findViewById<Button>(R.id.fragment_dialog)
         val testDialogLifecycle = findViewById<Button>(R.id.test_dialog_lifecycle)
+        val animDialog = findViewById<Button>(R.id.anim_dialog)
 
         standardDialog.setOnClickListener(this)
         fragmentDialog.setOnClickListener(this)
         testDialogLifecycle.setOnClickListener(this)
+        animDialog.setOnClickListener(this)
 
 
     }
@@ -68,9 +70,9 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
         )
 
         val viewPager = dialog.findViewById<ViewPager2>(R.id.view_pager)
-        val adapter = CommonRecyclerViewAdapter.Build<String>()
+        val adapter = CommonRecyclerViewAdapter.Build()
             .setContext(this)
-            .setDataList(list)
+            .setSize(list.size)
             .setLayoutId(R.layout.view_page_item)
             .build()
 
@@ -94,7 +96,24 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
             R.id.standard_dialog -> standardDialog()
             R.id.fragment_dialog -> fragmentDialog()
             R.id.test_dialog_lifecycle -> testDialogLifecycle()
+            R.id.anim_dialog -> animDialog()
         }
+    }
+
+    private fun animDialog() {
+        val dialog = CommonDialog.Build(this)
+            .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
+            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+            .setLayout(R.layout.common_dia_log)
+            .setText(R.id.tile, "自定义标题")
+            .setText(R.id.message, "自定义内容")
+            .setText(R.id.left_button, "确定")
+            .setText(R.id.right_button, "取消")
+            .setAnimation(R.id.imageView, R.anim.rotate)
+            .setCanceledOnTouchOutside(true)
+            .build()
+
+        dialog.show()
     }
 
     private fun testDialogLifecycle() {

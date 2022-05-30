@@ -17,6 +17,7 @@ import com.wang.tools.permission.PermissionActivity
 import com.wang.tools.widget.dialog.DiaLogActivity
 import com.wang.tools.widget.popupwindow.PopupWindowActivity
 import com.wang.tools.widget.recyclerview.RecyclerViewActivity
+import com.wang.tools.widget.suspension.SuspensionActivity
 import com.wang.tools.widget.viewpager.ViewPager2Activity
 import com.wang.tools.wifi.WIFIActivity
 
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             "中英文语言切换",
             "相机",
             "popupWindow",
+            "Suspension",
         )
         val adapter = RecyclerViewAdapter(list, this)
 
@@ -64,9 +66,15 @@ class MainActivity : AppCompatActivity() {
                     10 -> startLanguageActivity()
                     11 -> startCameraActivity()
                     12 -> startPopupWindow()
+                    13 -> startSuspensionActivity()
                 }
             }
         })
+    }
+
+    private fun startSuspensionActivity() {
+        val intent = Intent(this, SuspensionActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startPopupWindow() {

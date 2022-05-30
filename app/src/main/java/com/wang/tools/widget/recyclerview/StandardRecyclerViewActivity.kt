@@ -13,7 +13,7 @@ import com.wang.tools.R
 class StandardRecyclerViewActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var list: MutableList<String>
     private lateinit var recyclerView: RecyclerView
-    private lateinit var recyclerViewAdapter: CommonRecyclerViewAdapter<String>
+    private lateinit var recyclerViewAdapter: CommonRecyclerViewAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_standard_recycler_view)
@@ -23,10 +23,10 @@ class StandardRecyclerViewActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initRecyclerView() {
-        recyclerViewAdapter = CommonRecyclerViewAdapter.Build<String>()
+        recyclerViewAdapter = CommonRecyclerViewAdapter.Build()
             .setContext(this)
             .setLayoutId(R.layout.recycler_text_item)
-            .setDataList(list)
+            .setSize(list.size)
             .build()
 
         recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->

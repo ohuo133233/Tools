@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.AnimRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -72,11 +75,17 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     private CommonDialog(@NonNull Build build, FragmentActivity fragmentActivity) {
         // 使用自定义Dialog样式
         super(fragmentActivity, build.mStyle);
-
-        fragmentActivity.getLifecycle().addObserver(this);
         mContext = fragmentActivity;
-        mBuild = build;
-        build();
+        if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
+            super.show();
+        } else {
+            this.mHandler.post(() -> {
+                fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
+                mBuild = build;
+                build();
+            });
+        }
+
     }
 
     /**
@@ -88,11 +97,16 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     private CommonDialog(@NonNull Build build, Fragment fragment) {
         // 使用自定义Dialog样式
         super(fragment.getContext(), build.mStyle);
-
-        fragment.getLifecycle().addObserver(this);
         mContext = fragment.getContext();
-        mBuild = build;
-        build();
+        if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
+            super.show();
+        } else {
+            this.mHandler.post(() -> {
+                fragment.getLifecycle().addObserver(this);
+                mBuild = build;
+                build();
+            });
+        }
     }
 
     /**
@@ -104,13 +118,16 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     private CommonDialog(@NonNull Build build, Context context) {
         // 使用自定义Dialog样式
         super(context, build.mStyle);
-
-        build.mLifecycle.addObserver(this);
-        mBuild = build;
         mContext = context;
-        build();
-
-
+        if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
+            super.show();
+        } else {
+            this.mHandler.post(() -> {
+                build.mLifecycle.addObserver(this);
+                mBuild = build;
+                build();
+            });
+        }
     }
 
     private void build() {
@@ -242,11 +259,35 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
             return this;
         }
 
+        public Build setText(@IdRes int viewId, @StringRes int stringId) {
+            View view = mRoot.findViewById(viewId);
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                textView.setText(stringId);
+            } else {
+                throw new NullPointerException("找不到setText方法，原因这个view不是继承TextView");
+            }
+            return this;
+        }
+
+
         public Build setImageResource(@IdRes int viewId, @DrawableRes int drawableResId) {
             View view = mRoot.findViewById(viewId);
             if (view instanceof ImageView) {
                 ImageView imageView = (ImageView) view;
                 imageView.setImageResource(drawableResId);
+            } else {
+                throw new NullPointerException("找不到setImageResource方法，原因这个view不是继承ImageView");
+            }
+            return this;
+        }
+
+        public Build setAnimation(@IdRes int viewId, @AnimRes int animRes) {
+            View view = mRoot.findViewById(viewId);
+            if (view instanceof ImageView) {
+                ImageView imageView = (ImageView) view;
+                Animation loadAnimation = AnimationUtils.loadAnimation(mContext, animRes);
+                imageView.setAnimation(loadAnimation);
             } else {
                 throw new NullPointerException("找不到setImageResource方法，原因这个view不是继承ImageView");
             }

@@ -14,4 +14,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/show_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="在上方弹出"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_right" />
+
+
+    <Button
+        android:id="@+id/show_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="在下方弹出"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/standard_popup_window" />
+
+    <Button
+        android:id="@+id/show_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示左边"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_top" />
+
+    <Button
+        android:id="@+id/show_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="显示右边"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_bottom" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/show_left" />
 </androidx.constraintlayout.widget.ConstraintLayout>

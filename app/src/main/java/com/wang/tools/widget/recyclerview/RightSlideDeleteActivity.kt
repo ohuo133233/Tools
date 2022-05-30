@@ -40,10 +40,10 @@ class RightSlideDeleteActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
 
 
-        val recyclerViewAdapter = CommonRecyclerViewAdapter.Build<String>()
+        val recyclerViewAdapter = CommonRecyclerViewAdapter.Build()
             .setContext(this)
             .setLayoutId(R.layout.recycler_text_item)
-            .setDataList(list)
+            .setSize(list.size)
             .build()
 
         recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->

@@ -23,7 +23,7 @@ import com.wang.tools.R
 
 class WIFIActivity : BaseActivity(), View.OnClickListener {
     private lateinit var mutableList: MutableList<ScanResult>
-    private lateinit var mRecyclerViewAdapter: CommonRecyclerViewAdapter<ScanResult>
+    private lateinit var mRecyclerViewAdapter: CommonRecyclerViewAdapter
     private lateinit var mWifiListRecyclerView: RecyclerView
     private var isEnabled = false
 
@@ -54,10 +54,10 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initRecyclerView() {
-        mRecyclerViewAdapter = CommonRecyclerViewAdapter.Build<ScanResult>()
+        mRecyclerViewAdapter = CommonRecyclerViewAdapter.Build()
             .setContext(this)
             .setLayoutId(R.layout.recycler_wifi_item)
-            .setDataList(mutableList)
+            .setSize(mutableList.size)
             .build()
 
         mWifiListRecyclerView.layoutManager = LinearLayoutManager(this)

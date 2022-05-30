@@ -89,12 +89,12 @@ public class LogService extends Service {
     }
 
     private void autoSave() {
-        TimerUtils.getInstance().timer(1000 * 60, () -> {
-            Log.d(TAG, "自动保存log");
-            mLogConfigure.createLog();
-            mLogConfigure.getMyAppLogCat();
-            mLogConfigure.writeLogFile();
-        });
+//        TimerUtils.getInstance().timer(1000 * 60, () -> {
+//            Log.d(TAG, "自动保存log");
+//            mLogConfigure.createLog();
+//            mLogConfigure.getMyAppLogCat();
+//            mLogConfigure.writeLogFile();
+//        });
 
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wang.tools">
+    package="com.wang.tools" >
     <!-- 网络权限 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 权限测试页面，需要的权限 -->
     <!-- 相机权限 -->
@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -21,7 +23,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Tools">
+        android:theme="@style/Theme.Tools" >
+        <activity
+            android:name=".widget.suspension.SuspensionActivity"
+            android:exported="false" />
         <activity
             android:name=".widget.popupwindow.PopupWindowActivity"
             android:exported="false" />
@@ -45,9 +50,6 @@
             android:exported="false" />
         <activity
             android:name=".widget.recyclerview.StandardRecyclerViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".room.RoomDemoActivity"
             android:exported="false" />
         <activity
             android:name=".widget.viewpager.ViewPager2Activity"
@@ -78,7 +80,7 @@
             android:exported="false" />
         <activity
             android:name=".main.MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

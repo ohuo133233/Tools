@@ -5,20 +5,21 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.wang.javatools.widget.recyclerview.CommonRecyclerViewAdapter;
 
 public class CommonPopupWindow extends PopupWindow {
+    private View mRoot;
 
     public CommonPopupWindow(Build build) {
         super(build.mContext);
-        View contentView = getContentView();
-
-        // 需要先测量，PopupWindow还未弹出时，宽高为0
-//        contentView.measure(makeDropDownMeasureSpec(getWidth()), makeDropDownMeasureSpec(getHeight()));
-
+        mRoot = build.mRoot;
         setHeight(build.height);
         setWidth(build.width);
 
@@ -29,23 +30,10 @@ public class CommonPopupWindow extends PopupWindow {
 
     }
 
-
-    private  int makeDropDownMeasureSpec(int measureSpec) {
-        int mode;
-        if (measureSpec == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            mode = View.MeasureSpec.UNSPECIFIED;
-        } else {
-            mode = View.MeasureSpec.EXACTLY;
-        }
-        return View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(measureSpec), mode);
+    public View findViewById(@IdRes int id) {
+        return mRoot.findViewById(id);
     }
 
-
-//    public void showBottomTOLeft(View view) {
-//        int offsetX = -getContentView().getMeasuredWidth();
-//        int offsetY = 0;
-//        showAsDropDown(getContentView(), mButton, offsetX, offsetY, Gravity.START);
-//    }
 
     public static class Build {
         private View mRoot;
@@ -78,6 +66,14 @@ public class CommonPopupWindow extends PopupWindow {
             this.touchable = touchable;
             return this;
         }
+
+        public CommonPopupWindow.Build setRecyclerView(@IdRes int recyclerViewId, CommonRecyclerViewAdapter commonRecyclerViewAdapter, @Nullable RecyclerView.LayoutManager layout) {
+            RecyclerView recyclerView = mRoot.findViewById(recyclerViewId);
+            recyclerView.setAdapter(commonRecyclerViewAdapter);
+            recyclerView.setLayoutManager(layout);
+            return this;
+        }
+
 
         public CommonPopupWindow Build() {
             return new CommonPopupWindow(this);

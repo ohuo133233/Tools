@@ -23,6 +23,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tile"
         tools:text="消息" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/loading"
+        app:layout_constraintEnd_toStartOf="@+id/right_button"
+        app:layout_constraintStart_toEndOf="@+id/left_button"
+        app:layout_constraintTop_toBottomOf="@+id/message" />
+
     <Button
         android:id="@+id/left_button"
         android:layout_width="wrap_content"
@@ -30,7 +39,7 @@
         app:layout_constraintEnd_toStartOf="@+id/right_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:text="左边按钮" />
 
     <Button
@@ -40,6 +49,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/left_button"
-        app:layout_constraintTop_toBottomOf="@+id/message"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:text="右边按钮" />
 </androidx.constraintlayout.widget.ConstraintLayout>
