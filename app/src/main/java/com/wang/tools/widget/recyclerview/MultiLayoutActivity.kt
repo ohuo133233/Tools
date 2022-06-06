@@ -23,10 +23,10 @@ class MultiLayoutActivity : AppCompatActivity() {
 
 
         val recyclerViewAdapter = CommonRecyclerViewAdapter.Build()
-            .setContext(this)
+
             .setLayoutIdList(R.layout.recycler_text_item, R.layout.recycler_button_item,R.layout.recycler_image_item)
             .setSize(list.size)
-            .build()
+            .build(this)
 
 //        recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
 //            holder.getView<TextView>(

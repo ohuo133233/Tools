@@ -24,10 +24,9 @@ class StandardRecyclerViewActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initRecyclerView() {
         recyclerViewAdapter = CommonRecyclerViewAdapter.Build()
-            .setContext(this)
             .setLayoutId(R.layout.recycler_text_item)
             .setSize(list.size)
-            .build()
+            .build(this)
 
         recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
             holder.getView<TextView>(

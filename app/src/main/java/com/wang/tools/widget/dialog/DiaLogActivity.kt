@@ -71,10 +71,9 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
 
         val viewPager = dialog.findViewById<ViewPager2>(R.id.view_pager)
         val adapter = CommonRecyclerViewAdapter.Build()
-            .setContext(this)
             .setSize(list.size)
             .setLayoutId(R.layout.view_page_item)
-            .build()
+            .build(this)
 
         adapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
             holder.getView<Button>(R.id.coles).setOnClickListener {

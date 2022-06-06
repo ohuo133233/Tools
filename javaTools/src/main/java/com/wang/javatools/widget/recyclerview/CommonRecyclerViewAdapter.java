@@ -43,9 +43,9 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
     private boolean isMultiLayout;
     private ArrayList<Integer> mLayoutIdList;
 
-    private CommonRecyclerViewAdapter(@NonNull Build build) {
+    private CommonRecyclerViewAdapter(@NonNull Context context,@NonNull Build build) {
         mBuild = build;
-        this.mContext = mBuild.mContext;
+        this.mContext = context;
         this.mLayoutId = mBuild.mLayoutId;
         this.mSize = mBuild.mSize;
 
@@ -122,8 +122,7 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
 
 
     public static class Build {
-        @NonNull
-        private Context mContext;
+
         @LayoutRes
         private int mLayoutId;
 
@@ -131,11 +130,6 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
 
         // 多布局的布局List
         private ArrayList<Integer> mLayoutIdList;
-
-        public Build setContext(@NonNull Context mContext) {
-            this.mContext = mContext;
-            return this;
-        }
 
 
         public Build setLayoutId(@LayoutRes int mLayoutId) {
@@ -157,8 +151,8 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
             return this;
         }
 
-        public CommonRecyclerViewAdapter build() {
-            return new CommonRecyclerViewAdapter(this);
+        public CommonRecyclerViewAdapter build(@NonNull Context context) {
+            return new CommonRecyclerViewAdapter(context,this);
         }
     }
 }

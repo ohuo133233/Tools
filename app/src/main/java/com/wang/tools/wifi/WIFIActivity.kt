@@ -55,10 +55,9 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
 
     private fun initRecyclerView() {
         mRecyclerViewAdapter = CommonRecyclerViewAdapter.Build()
-            .setContext(this)
             .setLayoutId(R.layout.recycler_wifi_item)
             .setSize(mutableList.size)
-            .build()
+            .build(this)
 
         mWifiListRecyclerView.layoutManager = LinearLayoutManager(this)
         mWifiListRecyclerView.adapter = mRecyclerViewAdapter

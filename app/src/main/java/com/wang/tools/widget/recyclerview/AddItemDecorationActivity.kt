@@ -38,10 +38,10 @@ class AddItemDecorationActivity : AppCompatActivity() {
 
 
         val recyclerViewAdapter = CommonRecyclerViewAdapter.Build()
-            .setContext(this)
+
             .setLayoutId(R.layout.recycler_text_item)
             .setSize(list.size)
-            .build()
+            .build(this)
 
         recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
             holder.getView<TextView>(
