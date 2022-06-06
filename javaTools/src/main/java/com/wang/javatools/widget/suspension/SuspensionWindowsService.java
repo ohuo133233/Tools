@@ -11,11 +11,16 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
+
 import com.wang.javatools.R;
 import com.wang.javatools.utils.IPUtils;
 
-public class SuspensionWindowsService extends AccessibilityService {
-
+public class SuspensionWindowsService extends AccessibilityService implements LifecycleEventObserver {
+    private boolean mIsShowWindow;
     private WindowManager windowManager;
     private View floatRootView;
     private View closeFloatRootView;
@@ -29,35 +34,58 @@ public class SuspensionWindowsService extends AccessibilityService {
 
     public void onCreate() {
         super.onCreate();
-        showWindow();
+        if (mIsShowWindow) {
+            windowManager.removeView(floatRootView);
+            mIsShowWindow = false;
+        } else {
+            showWindow();
+        }
+
     }
 
 
     private void showWindow() {
+
+        mIsShowWindow = true;
+
         // 设置LayoutParam
         // 获取WindowManager服务
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
-
         windowManager.getDefaultDisplay().getMetrics(outMetrics);
+
         WindowManager.LayoutParams layoutParam = new WindowManager.LayoutParams();
-        layoutParam.height = 500;
-        layoutParam.width = 500;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            layoutParam.type = WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY;
+            // 刘海屏延伸到刘海里面
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                layoutParam.layoutInDisplayCutoutMode =
+                        WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            }
+        } else {
+            layoutParam.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
+        }
+
+        layoutParam.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        layoutParam.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParam.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParam.format = PixelFormat.TRANSPARENT;
 
 
         floatRootView = LayoutInflater.from(this).inflate(R.layout.activity_float_item, null);
-        closeFloatRootView = LayoutInflater.from(this).inflate(R.layout.colse_float, null);
-        show(layoutParam);
-        floatRootView.setOnTouchListener(new ItemViewTouchListener(layoutParam, windowManager,null));
+//        closeFloatRootView = LayoutInflater.from(this).inflate(R.layout.colse_float, null);
+//        floatRootView.setOnTouchListener(new ItemViewTouchListener(layoutParam, windowManager, null));
         windowManager.addView(floatRootView, layoutParam);
 
-        initView();
+
+        //  initView();
     }
 
     private void initView() {
         Button ping_ip = floatRootView.findViewById(R.id.ping_ip);
         ping_ip.setOnClickListener(v -> {
-            IPUtils ipUtils =new IPUtils();
+            IPUtils ipUtils = new IPUtils();
             ipUtils.pingIP(IP);
         });
 
@@ -77,23 +105,31 @@ public class SuspensionWindowsService extends AccessibilityService {
 
     public void showOpenLayout() {
         WindowManager.LayoutParams layoutParam = new WindowManager.LayoutParams();
+        show(layoutParam);
         layoutParam.height = 500;
         layoutParam.width = 500;
-        show(layoutParam);
-        floatRootView.setOnTouchListener(new ItemViewTouchListener(layoutParam, windowManager,null));
+        layoutParam.format = PixelFormat.RGBA_8888;
+
+        floatRootView.setOnTouchListener(new ItemViewTouchListener(layoutParam, windowManager, null));
         windowManager.addView(floatRootView, layoutParam);
     }
 
     // 适配Android悬浮窗权限
     public void show(WindowManager.LayoutParams layoutParam) {
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            layoutParam.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-            layoutParam.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+            layoutParam.type = WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY;
+            //刘海屏延伸到刘海里面
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                layoutParam.layoutInDisplayCutoutMode =
+                        WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            }
         } else {
-            layoutParam.type = WindowManager.LayoutParams.TYPE_PHONE;
+            layoutParam.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         }
 
-        layoutParam.format = PixelFormat.RGBA_8888;
+
     }
 
     public void closeLayout() {
@@ -112,6 +148,12 @@ public class SuspensionWindowsService extends AccessibilityService {
     }
 
     @Override
+    public void onDestroy() {
+        windowManager.removeView(floatRootView);
+        super.onDestroy();
+    }
+
+    @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
 
     }
@@ -122,8 +164,7 @@ public class SuspensionWindowsService extends AccessibilityService {
     }
 
     @Override
-    public void onDestroy() {
-        windowManager.removeView(floatRootView);
-        super.onDestroy();
+    public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
+
     }
 }

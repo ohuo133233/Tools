@@ -28,7 +28,7 @@ public class SuspensionActivity extends AppCompatActivity {
     public void checkAccessibilityPermission() {
         if (isServiceRunning(this, SuspensionWindowsService.class.getName())) {
             SuspensionWindowsService.setIP("127.0.0.1");
-            Intent intent = new Intent(getApplicationContext(), SuspensionWindowsService.class);
+            Intent intent = new Intent(this, SuspensionWindowsService.class);
             startService(intent);
         } else {
             accessibilityToSettingPage();

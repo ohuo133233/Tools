@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.wang.javatools.log.LogUtils
+import com.wang.javatools.log.Logger
 import com.wang.javatools.permission.PermissionManager
 import com.wang.tools.R
 
@@ -40,6 +41,11 @@ class LogActivity : AppCompatActivity(), View.OnClickListener {
         colesPrintln.setOnClickListener(this)
         logSaveEnabled.setOnClickListener(this)
         logSaveColes.setOnClickListener(this)
+
+        Logger.w("这是一条log日志，测试测试测试 这是一条log日志，测试测试测试" + 1)
+        Logger.w("这是一条log日志，测试测试测试 这是一条log日志，测试测试测试" + 2)
+        Logger.w("这是一条log日志，测试测试测试 这是一条log日志，测试测试测试" + 3)
+        Logger.w("这是一条log日志，测试测试测试 这是一条log日志，测试测试测试" + 4)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
