@@ -77,7 +77,9 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         super(fragmentActivity, build.mStyle);
         mContext = fragmentActivity;
         if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
-            super.show();
+            fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
+            mBuild = build;
+            build();
         } else {
             this.mHandler.post(() -> {
                 fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
@@ -99,10 +101,12 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         super(fragment.getContext(), build.mStyle);
         mContext = fragment.getContext();
         if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
-            super.show();
+            fragment.getLifecycle().addObserver(CommonDialog.this);
+            mBuild = build;
+            build();
         } else {
             this.mHandler.post(() -> {
-                fragment.getLifecycle().addObserver(this);
+                fragment.getLifecycle().addObserver(CommonDialog.this);
                 mBuild = build;
                 build();
             });
@@ -120,7 +124,9 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         super(context, build.mStyle);
         mContext = context;
         if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
-            super.show();
+            build.mLifecycle.addObserver(this);
+            mBuild = build;
+            build();
         } else {
             this.mHandler.post(() -> {
                 build.mLifecycle.addObserver(this);

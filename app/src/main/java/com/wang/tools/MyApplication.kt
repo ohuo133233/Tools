@@ -10,11 +10,11 @@ public class MyApplication : Application() {
     override fun onCreate() {
         LogUtils.e(TAG, "MyApplication onCreate")
         super.onCreate()
-        val javaToolsManager = JavaToolsManager.Build()
-            .setIsDebug(BuildConfig.DEBUG)
-            .setApplication(this)
-            .build()
+//        val javaToolsManager = JavaToolsManager.Build()
+//            .setIsDebug(BuildConfig.DEBUG)
+//            .setApplication(this)
+//            .build()
 
-        Logger.init(this)
+//        Logger.init(this)
     }
 }

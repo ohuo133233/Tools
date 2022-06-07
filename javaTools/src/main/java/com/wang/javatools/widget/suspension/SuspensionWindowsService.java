@@ -40,7 +40,6 @@ public class SuspensionWindowsService extends AccessibilityService implements Li
         } else {
             showWindow();
         }
-
     }
 
 

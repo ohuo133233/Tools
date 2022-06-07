@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.wang.javatools.widget.dialog.CommonDialog
@@ -16,6 +17,7 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dia_log)
+
         val standardDialog = findViewById<Button>(R.id.standard_dialog)
         val fragmentDialog = findViewById<Button>(R.id.fragment_dialog)
         val testDialogLifecycle = findViewById<Button>(R.id.test_dialog_lifecycle)
@@ -47,6 +49,10 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
 
             }
         }.start()
+
+        dialog.setOnCancelListener {
+            Toast.makeText(this, "点击外部消失", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
