@@ -69,7 +69,7 @@ class WIFIActivity : BaseActivity(), View.OnClickListener {
 //        if (mutableList.size == 0) {
 //            return;
 //        }
-        mRecyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
+        mRecyclerViewAdapter.setCommonRecyclerViewAdapterBackCall { holder, position ->
 
 //            LogUtils.b(TAG, "WIFI " + this.mutableList[position].SSID)
 //            LogUtils.b(TAG, "下标 " + position)

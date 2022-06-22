@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,17 +22,18 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
-import com.wang.javatools.base.LifecycleObserver;
 
 /**
  * 自定义Dialog类，
  * 帮你简化Dialog创建，使用Build类快速创建。
  * 通过传入的布局、按钮、Text，快速获取到Dialog，不提供默认模板
  * 返回对象是Dialog，你依然可以拿到返回Dialog进行封装和修改
- * 无需关注Dialog的生命周期，会跟随传入的页面自动销毁，也可以自己调用dismiss
+ * 无需关注Dialog的生命周期，会跟随传入的页面自动销毁，也可以自己调用dismiss，多次调用dismiss不会真实被多次调用。
+ * 支持线程切换，在子线程弹出和创建
  * <p>
  * 使用指南
  * 1.如何定义Dialog中的属性
@@ -60,7 +62,7 @@ import com.wang.javatools.base.LifecycleObserver;
  * 5.支持在子线程弹出时切换到主线程
  */
 
-public class CommonDialog extends Dialog implements LifecycleObserver {
+public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
     private static final String TAG = "CommonDialog";
     private Build mBuild;
     private Context mContext;
@@ -75,15 +77,14 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     private CommonDialog(@NonNull Build build, FragmentActivity fragmentActivity) {
         // 使用自定义Dialog样式
         super(fragmentActivity, build.mStyle);
+        mBuild = build;
         mContext = fragmentActivity;
         if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
             fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
-            mBuild = build;
             build();
         } else {
             this.mHandler.post(() -> {
                 fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
-                mBuild = build;
                 build();
             });
         }
@@ -99,15 +100,14 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     private CommonDialog(@NonNull Build build, Fragment fragment) {
         // 使用自定义Dialog样式
         super(fragment.getContext(), build.mStyle);
+        mBuild = build;
         mContext = fragment.getContext();
         if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
             fragment.getLifecycle().addObserver(CommonDialog.this);
-            mBuild = build;
             build();
         } else {
             this.mHandler.post(() -> {
                 fragment.getLifecycle().addObserver(CommonDialog.this);
-                mBuild = build;
                 build();
             });
         }
@@ -122,15 +122,14 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     private CommonDialog(@NonNull Build build, Context context) {
         // 使用自定义Dialog样式
         super(context, build.mStyle);
+        mBuild = build;
         mContext = context;
         if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
             build.mLifecycle.addObserver(this);
-            mBuild = build;
             build();
         } else {
             this.mHandler.post(() -> {
                 build.mLifecycle.addObserver(this);
-                mBuild = build;
                 build();
             });
         }
@@ -140,10 +139,18 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         setContentView(mBuild.mRoot);
         // 设置宽和高
         WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.height = this.mBuild.mHeight;
-        params.width = this.mBuild.mWidth;
-        getWindow().setAttributes(params);
+        if (mBuild.mHeight == 0) {
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        } else {
+            params.height = this.mBuild.mHeight;
+        }
+        if (mBuild.mWidth == 0) {
+            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        } else {
+            params.width = this.mBuild.mWidth;
+        }
 
+        getWindow().setAttributes(params);
         // 设置点击Dialog以外的区域时Dialog消失
         setCanceledOnTouchOutside(mBuild.mCancel);
     }
@@ -160,12 +167,7 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         if (Thread.currentThread().getName().equals(mContext.getMainLooper().getThread().getName())) {
             super.show();
         } else {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    show();
-                }
-            });
+            mHandler.post(super::show);
         }
     }
 
@@ -188,7 +190,14 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
     @Override
     public void dismiss() {
         Log.d(TAG, "dismiss");
-        super.dismiss();
+        if (isShowing()) {
+            // 判断是否是在主线程，如果是直接销毁，否则切换到主线程再销毁
+            if (Thread.currentThread().getName().equals(mContext.getMainLooper().getThread().getName())) {
+                super.dismiss();
+            } else {
+                mHandler.post(super::dismiss);
+            }
+        }
     }
 
     public static class Build {

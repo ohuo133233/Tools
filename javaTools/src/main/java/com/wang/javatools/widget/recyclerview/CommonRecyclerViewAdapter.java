@@ -35,7 +35,7 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
     private final Context mContext;
     @LayoutRes
     private final int mLayoutId;
-    private BaseRecyclerViewAdapterBackCall mBaseRecyclerViewAdapterBackCall;
+    public CommonRecyclerViewAdapterBackCall mCommonRecyclerViewAdapterBackCall;
     private final Build mBuild;
     // RecyclerView的根布局
     private View mRoot;
@@ -43,7 +43,7 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
     private boolean isMultiLayout;
     private ArrayList<Integer> mLayoutIdList;
 
-    private CommonRecyclerViewAdapter(@NonNull Context context,@NonNull Build build) {
+    private CommonRecyclerViewAdapter(@NonNull Context context, @NonNull Build build) {
         mBuild = build;
         this.mContext = context;
         this.mLayoutId = mBuild.mLayoutId;
@@ -82,8 +82,8 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
 
     @Override
     public void onBindViewHolder(@NonNull CommonRecyclerViewHolder holder, int position) {
-        if (mBaseRecyclerViewAdapterBackCall != null) {
-            mBaseRecyclerViewAdapterBackCall.onBindViewHolder(holder, position);
+        if (mCommonRecyclerViewAdapterBackCall != null) {
+            mCommonRecyclerViewAdapterBackCall.onBindViewHolder(holder, position);
         }
     }
 
@@ -112,8 +112,8 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
         this.mSize = mSize;
     }
 
-    public void setBaseRecyclerViewAdapterBackCall(BaseRecyclerViewAdapterBackCall baseRecyclerViewAdapterBackCall) {
-        this.mBaseRecyclerViewAdapterBackCall = baseRecyclerViewAdapterBackCall;
+    public void setCommonRecyclerViewAdapterBackCall(CommonRecyclerViewAdapterBackCall commonRecyclerViewAdapterBackCall) {
+        this.mCommonRecyclerViewAdapterBackCall = commonRecyclerViewAdapterBackCall;
     }
 
     public interface BaseRecyclerViewAdapterBackCall {
@@ -152,7 +152,7 @@ public class CommonRecyclerViewAdapter extends RecyclerView.Adapter<CommonRecycl
         }
 
         public CommonRecyclerViewAdapter build(@NonNull Context context) {
-            return new CommonRecyclerViewAdapter(context,this);
+            return new CommonRecyclerViewAdapter(context, this);
         }
     }
 }

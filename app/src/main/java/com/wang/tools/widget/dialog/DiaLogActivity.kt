@@ -33,8 +33,7 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun standardDialog() {
         val dialog = CommonDialog.Build(this)
-            .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
-            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+
             .setLayout(R.layout.common_dia_log)
             .setText(R.id.tile, "自定义标题")
             .setText(R.id.message, "自定义内容")
@@ -49,7 +48,7 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
 
             }
         }.start()
-
+        dialog.findViewById<TextView>(R.id.tile).setText("修改标题")
         dialog.setOnCancelListener {
             Toast.makeText(this, "点击外部消失", Toast.LENGTH_SHORT).show()
         }
@@ -81,7 +80,7 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
             .setLayoutId(R.layout.view_page_item)
             .build(this)
 
-        adapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
+        adapter.setCommonRecyclerViewAdapterBackCall { holder, position ->
             holder.getView<Button>(R.id.coles).setOnClickListener {
                 dialog.dismiss()
             }
@@ -107,8 +106,6 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun animDialog() {
         val dialog = CommonDialog.Build(this)
-            .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
-            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
             .setLayout(R.layout.common_dia_log)
             .setText(R.id.tile, "自定义标题")
             .setText(R.id.message, "自定义内容")
@@ -123,8 +120,6 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun testDialogLifecycle() {
         val dialog = CommonDialog.Build(this)
-            .setWidth(ViewGroup.LayoutParams.WRAP_CONTENT)
-            .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
             .setLayout(R.layout.common_dia_log)
             .setText(R.id.tile, "自定义标题")
             .setText(R.id.message, "点击确定销毁Activity")

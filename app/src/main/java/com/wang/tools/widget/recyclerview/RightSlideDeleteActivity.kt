@@ -45,7 +45,7 @@ class RightSlideDeleteActivity : AppCompatActivity() {
             .setSize(list.size)
             .build(this)
 
-        recyclerViewAdapter.setBaseRecyclerViewAdapterBackCall { holder, position ->
+        recyclerViewAdapter.setCommonRecyclerViewAdapterBackCall { holder, position ->
             holder.getView<TextView>(
                 R.id.text_view
             ).text = list[position]
