@@ -10,3 +10,4 @@ rootProject.name = "Tools"
 include ':app'
 include ':javaTools'
 include ':kotlinTools'
+include ':uilibrary'

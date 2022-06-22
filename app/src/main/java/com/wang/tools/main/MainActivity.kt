@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wang.tools.R
+import com.wang.tools.button.ButtonActivity
 import com.wang.tools.language.LanguageActivity
 import com.wang.tools.log.LogActivity
 import com.wang.tools.main.RecyclerViewAdapter.OnClickListener
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             "相机",
             "popupWindow",
             "Suspension",
+            "Button",
         )
         val adapter = RecyclerViewAdapter(list, this)
 
@@ -67,9 +69,15 @@ class MainActivity : AppCompatActivity() {
                     11 -> startCameraActivity()
                     12 -> startPopupWindow()
                     13 -> startSuspensionActivity()
+                    14 -> startButtonActivity()
                 }
             }
         })
+    }
+
+    private fun startButtonActivity() {
+        val intent = Intent(this, ButtonActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startSuspensionActivity() {

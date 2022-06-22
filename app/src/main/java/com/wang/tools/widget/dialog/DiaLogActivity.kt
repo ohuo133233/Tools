@@ -33,7 +33,6 @@ class DiaLogActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun standardDialog() {
         val dialog = CommonDialog.Build(this)
-
             .setLayout(R.layout.common_dia_log)
             .setText(R.id.tile, "自定义标题")
             .setText(R.id.message, "自定义内容")
