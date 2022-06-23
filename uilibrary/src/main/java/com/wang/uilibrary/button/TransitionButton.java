@@ -9,13 +9,12 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
@@ -30,10 +29,13 @@ import com.wang.uilibrary.utils.WindowUtils;
 
 
 public class TransitionButton extends AppCompatButton {
-
+    // 宽度动画持续时间
     private final int WIDTH_ANIMATION_DURATION = 200;
+    // 缩放动画持续时间
     private final int SCALE_ANIMATION_DURATION = 300;
+    // 摇晃动画持续时间
     private final int SHAKE_ANIMATION_DURATION = 500;
+    // 颜色动画持续时间
     private final int COLOR_ANIMATION_DURATION = 350;
     private int messageAnimationDuration = COLOR_ANIMATION_DURATION * 10;
 
@@ -48,6 +50,9 @@ public class TransitionButton extends AppCompatButton {
     private int defaultColor;
     private int errorColor;
     private int loaderColor;
+
+    private int mWindowWidth;
+    private int mWindowHeight;
 
     private CircularAnimatedDrawable progressCircularAnimatedDrawable;
 
@@ -67,6 +72,9 @@ public class TransitionButton extends AppCompatButton {
     }
 
     private void init(Context context, AttributeSet attrs) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        mWindowWidth = wm.getDefaultDisplay().getWidth();
+        mWindowHeight = wm.getDefaultDisplay().getHeight();
         currentState = State.IDLE;
 
         errorColor = ContextCompat.getColor(getContext(), R.color.colorError);
@@ -95,7 +103,7 @@ public class TransitionButton extends AppCompatButton {
 
         Drawable background = ContextCompat.getDrawable(context, R.drawable.transition_button_shape_idle);
         setBackground(background);
-  }
+    }
 
     public void startAnimation() {
         currentState = State.PROGRESS;
@@ -195,22 +203,22 @@ public class TransitionButton extends AppCompatButton {
 
     private void startWidthAnimation(int from, int to, AnimatorListenerAdapter onAnimationEnd) {
         ValueAnimator widthAnimation = ValueAnimator.ofInt(from, to);
-        widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int val = (Integer) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = getLayoutParams();
-                layoutParams.width = val;
-                setLayoutParams(layoutParams);
-            }
+        widthAnimation.addUpdateListener(valueAnimator -> {
+            int val = (Integer) valueAnimator.getAnimatedValue();
+            ViewGroup.LayoutParams layoutParams = getLayoutParams();
+            // 设置按钮的大小，为屏幕大小，表现为铺满全屏
+
+            layoutParams.width = mWindowWidth;
+            layoutParams.height = mWindowHeight;
+            setLayoutParams(layoutParams);
         });
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(WIDTH_ANIMATION_DURATION);
         animatorSet.playTogether(widthAnimation);
-        if (onAnimationEnd != null)
+        if (onAnimationEnd != null) {
             animatorSet.addListener(onAnimationEnd);
-
+        }
         animatorSet.start();
     }
 
@@ -225,9 +233,9 @@ public class TransitionButton extends AppCompatButton {
     private void startScaleAnimation(Animation.AnimationListener animationListener) {
         float ts = (float) (WindowUtils.getHeight(getContext()) / getHeight() * 2.1);
         Animation anim = new ScaleAnimation(1f, ts,
-            1, ts,
-            Animation.RELATIVE_TO_SELF, 0.5f,
-            Animation.RELATIVE_TO_SELF, 0.5f);
+                1, ts,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
         anim.setDuration(SCALE_ANIMATION_DURATION);
         anim.setFillAfter(true);
         anim.setAnimationListener(animationListener);
@@ -239,24 +247,18 @@ public class TransitionButton extends AppCompatButton {
         setClickable(false);
         startColorAnimation(defaultColor, errorColor);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setText(initialText);
-                setClickable(true);
-                startColorAnimation(errorColor, defaultColor);
-            }
+        new Handler().postDelayed(() -> {
+            setText(initialText);
+            setClickable(true);
+            startColorAnimation(errorColor, defaultColor);
         }, messageAnimationDuration);
     }
 
     private void startColorAnimation(int from, int to) {
         ValueAnimator anim = ValueAnimator.ofArgb(from, to);
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                setBackgroundTintList(ColorStateList.valueOf((Integer)valueAnimator.getAnimatedValue()));
-                refreshDrawableState();
-            }
+        anim.addUpdateListener(valueAnimator -> {
+            setBackgroundTintList(ColorStateList.valueOf((Integer) valueAnimator.getAnimatedValue()));
+            refreshDrawableState();
         });
         anim.setDuration(COLOR_ANIMATION_DURATION);
         anim.start();
