@@ -1,8 +1,9 @@
-package com.wang.javatools.widget.dialog;
+package com.hite.javatools.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +23,10 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
+
+import com.wang.javatools.base.LifecycleObserver;
 
 
 /**
@@ -62,11 +64,15 @@ import androidx.lifecycle.LifecycleOwner;
  * 5.支持在子线程弹出时切换到主线程
  */
 
-public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
+// TODO
+//  1.修改Dialog只做增强，不做修改
+
+
+public class CommonDialog extends Dialog implements LifecycleObserver {
     private static final String TAG = "CommonDialog";
     private Build mBuild;
     private Context mContext;
-    private Handler mHandler = new Handler();
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     /**
      * 提供给Activity创建的Dialog的构造方法
@@ -77,18 +83,12 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
     private CommonDialog(@NonNull Build build, FragmentActivity fragmentActivity) {
         // 使用自定义Dialog样式
         super(fragmentActivity, build.mStyle);
-        mBuild = build;
         mContext = fragmentActivity;
-        if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
+        this.mHandler.post(() -> {
             fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
+            mBuild = build;
             build();
-        } else {
-            this.mHandler.post(() -> {
-                fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
-                build();
-            });
-        }
-
+        });
     }
 
     /**
@@ -100,14 +100,15 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
     private CommonDialog(@NonNull Build build, Fragment fragment) {
         // 使用自定义Dialog样式
         super(fragment.getContext(), build.mStyle);
-        mBuild = build;
         mContext = fragment.getContext();
         if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
             fragment.getLifecycle().addObserver(CommonDialog.this);
+            mBuild = build;
             build();
         } else {
             this.mHandler.post(() -> {
                 fragment.getLifecycle().addObserver(CommonDialog.this);
+                mBuild = build;
                 build();
             });
         }
@@ -122,17 +123,20 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
     private CommonDialog(@NonNull Build build, Context context) {
         // 使用自定义Dialog样式
         super(context, build.mStyle);
-        mBuild = build;
         mContext = context;
+        build.mLifecycle.addObserver(this);
         if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
             build.mLifecycle.addObserver(this);
+            mBuild = build;
             build();
         } else {
             this.mHandler.post(() -> {
                 build.mLifecycle.addObserver(this);
+                mBuild = build;
                 build();
             });
         }
+
     }
 
     private void build() {
@@ -151,6 +155,7 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
         }
 
         getWindow().setAttributes(params);
+
         // 设置点击Dialog以外的区域时Dialog消失
         setCanceledOnTouchOutside(mBuild.mCancel);
     }
@@ -160,16 +165,24 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
         return this.mBuild.mRoot.findViewById(viewId);
     }
 
+    /**
+     * ----------------------------------------------------------------
+     * 增强方法
+     */
+    public void uiShow() {
+        mHandler.post(super::show);
 
-    @Override
-    public void show() {
-        // 判断是否是在主线程，如果是直接弹出，否则切换到主线程再弹出
-        if (Thread.currentThread().getName().equals(mContext.getMainLooper().getThread().getName())) {
-            super.show();
-        } else {
-            mHandler.post(super::show);
-        }
     }
+
+    public void uiDismiss() {
+        mHandler.post(super::dismiss);
+    }
+
+    /**
+     * 增强方法
+     * ----------------------------------------------------------------
+     */
+
 
     /**
      * 自动处理生命周期，当Activity销毁时销毁自己
@@ -182,22 +195,9 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
     public void onDestroy(@NonNull LifecycleOwner owner) {
         // 经过测试多次调用dismiss()没有异常
         Log.e(TAG, "自动销毁Dialog");
-        mContext = null;
-        mHandler.removeCallbacksAndMessages(null);
         this.dismiss();
-    }
-
-    @Override
-    public void dismiss() {
-        Log.d(TAG, "dismiss");
-        if (isShowing()) {
-            // 判断是否是在主线程，如果是直接销毁，否则切换到主线程再销毁
-            if (Thread.currentThread().getName().equals(mContext.getMainLooper().getThread().getName())) {
-                super.dismiss();
-            } else {
-                mHandler.post(super::dismiss);
-            }
-        }
+        mHandler.removeCallbacksAndMessages(null);
+        mContext = null;
     }
 
     public static class Build {
@@ -211,21 +211,11 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
         private boolean mCancel;
         private int mStyle;
 
-        /**
-         * 通过Build构造方法限制创建方式
-         *
-         * @param fragmentActivity 限制为Activity
-         */
         public Build(FragmentActivity fragmentActivity) {
             this.mContext = fragmentActivity;
             this.fragmentActivity = fragmentActivity;
         }
 
-        /**
-         * 通过Build构造方法限制创建方式
-         *
-         * @param fragment 限制为Fragment
-         */
         public Build(Fragment fragment) {
             this.mContext = fragment.getContext();
             this.fragment = fragment;
@@ -242,12 +232,6 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
             this.mLifecycle = lifecycle;
         }
 
-        /**
-         * 传入布局
-         *
-         * @param mLayout 布局
-         * @return
-         */
         public Build setLayout(@LayoutRes int mLayout) {
             mRoot = LayoutInflater.from(mContext).inflate(mLayout, null, false);
             return this;
@@ -274,6 +258,7 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
             return this;
         }
 
+
         public Build setText(@IdRes int viewId, @StringRes int stringId) {
             View view = mRoot.findViewById(viewId);
             if (view instanceof TextView) {
@@ -285,7 +270,6 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
             return this;
         }
 
-
         public Build setImageResource(@IdRes int viewId, @DrawableRes int drawableResId) {
             View view = mRoot.findViewById(viewId);
             if (view instanceof ImageView) {
@@ -296,6 +280,7 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
             }
             return this;
         }
+
 
         public Build setAnimation(@IdRes int viewId, @AnimRes int animRes) {
             View view = mRoot.findViewById(viewId);
@@ -333,7 +318,6 @@ public class CommonDialog extends Dialog implements DefaultLifecycleObserver {
         }
 
         public CommonDialog build() {
-
             if (fragmentActivity != null) {
                 return new CommonDialog(this, fragmentActivity);
             } else if (fragment != null) {
