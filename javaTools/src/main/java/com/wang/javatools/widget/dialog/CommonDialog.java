@@ -1,4 +1,4 @@
-package com.hite.javatools.widget.dialog;
+package com.wang.javatools.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -84,11 +84,9 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         // 使用自定义Dialog样式
         super(fragmentActivity, build.mStyle);
         mContext = fragmentActivity;
-        this.mHandler.post(() -> {
-            fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
-            mBuild = build;
-            build();
-        });
+        fragmentActivity.getLifecycle().addObserver(CommonDialog.this);
+        mBuild = build;
+        build();
     }
 
     /**
@@ -101,17 +99,10 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         // 使用自定义Dialog样式
         super(fragment.getContext(), build.mStyle);
         mContext = fragment.getContext();
-        if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
-            fragment.getLifecycle().addObserver(CommonDialog.this);
-            mBuild = build;
-            build();
-        } else {
-            this.mHandler.post(() -> {
-                fragment.getLifecycle().addObserver(CommonDialog.this);
-                mBuild = build;
-                build();
-            });
-        }
+        fragment.getLifecycle().addObserver(CommonDialog.this);
+        mBuild = build;
+        build();
+
     }
 
     /**
@@ -125,17 +116,9 @@ public class CommonDialog extends Dialog implements LifecycleObserver {
         super(context, build.mStyle);
         mContext = context;
         build.mLifecycle.addObserver(this);
-        if (Thread.currentThread().getName().equals(this.mContext.getMainLooper().getThread().getName())) {
-            build.mLifecycle.addObserver(this);
-            mBuild = build;
-            build();
-        } else {
-            this.mHandler.post(() -> {
-                build.mLifecycle.addObserver(this);
-                mBuild = build;
-                build();
-            });
-        }
+        mBuild = build;
+        build();
+
 
     }
 
